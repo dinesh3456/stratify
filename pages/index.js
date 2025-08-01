@@ -15,23 +15,23 @@ import Contact from "../components/sections/Home1/Contact";
 import News from "../components/sections/Home1/News";
 
 export default function Home1() {
-    return (
-        <>
-            <Layout>
-                <Slider />
-                <Features />
-                <Consult />
-                <HzAccordion />
-                <Professional />
-                <ChooseUs />
-                <Video />
-                <About />
-                <Team />
-                <Faqs />
-                <Brand />
-                <Contact />
-                <News />
-            </Layout>
-        </>
-    );
+  return (
+    <>
+      <Layout>
+        <Slider />
+        <Features />
+        <Consult />
+        <HzAccordion />
+        <Professional />
+        <ChooseUs />
+        <Video />
+        <About />
+        <Team />
+        <Faqs />
+        <Brand />
+        <Contact />
+        <News />
+      </Layout>
+    </>
+  );
 }
