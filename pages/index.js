@@ -22,17 +22,18 @@ export default function Home1() {
 
         <Features />
         <HzAccordion />
-        <Consult />
-
-        <Professional />
         <ChooseUs />
-        <Video />
-        <About />
+
+        {/* <Consult />
+        <Professional />
+        <Video />        
         <Team />
         <Faqs />
         <Brand />
+        <News /> */}
+
+        <About />
         <Contact />
-        <News />
       </Layout>
     </>
   );
