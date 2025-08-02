@@ -19,9 +19,11 @@ export default function Home1() {
     <>
       <Layout>
         <Slider />
+
         <Features />
-        <Consult />
         <HzAccordion />
+        <Consult />
+
         <Professional />
         <ChooseUs />
         <Video />
