@@ -1,2 +1,17 @@
 node_modules
 .next
+.env
+dist
+coverage
+*.log
+npm-debug.log*
+yarn-error.log
+.vscode
+.DS_Store
+*.swp
+*.swo
+.idea
+out
+*.local
+*.cache
+*.lock
