@@ -5206,6 +5206,7 @@ figure {
 .banner__slider {
   height: 100%;
 }
+/* Updated CSS for small circular pagination dots */
 .banner__dot {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -5213,53 +5214,49 @@ figure {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 5px;
+  gap: 15px; /* Increased gap for better spacing between small dots */
   z-index: 99;
   position: absolute;
   left: unset !important;
   bottom: 80px !important;
   right: 80px !important;
-  max-width: 425px;
+  max-width: 200px; /* Reduced max-width since dots are much smaller */
 }
+
 .banner__dot .swiper-pagination-bullet {
-  width: 130px;
-  height: 130px;
-  background-color: transparent;
-  padding: 10px 15px;
+  width: 12px; /* Small circular dot size */
+  height: 12px; /* Small circular dot size */
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+  padding: 0; /* Remove padding */
   cursor: pointer;
   overflow: hidden;
-  border: 1px solid var(--white);
-  border-radius: 0;
+  border: none; /* Remove border */
+  border-radius: 50%; /* Make it circular */
   -webkit-transition: var(--transition);
   transition: var(--transition);
   opacity: 1;
 }
+
 .banner__dot .swiper-pagination-bullet-active {
-  background-color: rgba(255, 255, 255, 0.4);
-  -webkit-backdrop-filter: blur(30px);
-          backdrop-filter: blur(30px);
+  background-color: rgba(255, 255, 255, 1); /* Solid white for active state */
+  -webkit-backdrop-filter: none; /* Remove backdrop filter */
+          backdrop-filter: none; /* Remove backdrop filter */
+  transform: scale(1.2); /* Slightly larger when active */
 }
+
+/* Remove the dot-content styles as they're no longer needed */
 .banner__dot .dot-content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  height: 130px;
+  display: none; /* Hide any remaining dot-content elements */
 }
+
 .banner__dot .dot-content span {
-  font-size: 18px;
-  font-weight: 600;
-  font-family: var(--font-title);
-  color: var(--white);
+  display: none; /* Hide any remaining text content */
 }
-.banner__dot .dot-content span:first-child {
-  text-align: right;
+
+/* Optional: Add hover effect for better UX */
+.banner__dot .swiper-pagination-bullet:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: scale(1.1);
 }
 @media (max-width: 991px) {
   .banner__dot {
@@ -19947,4 +19944,16 @@ textarea.form-control {
 form .error {
   color: red;
   font-size: 13px;
+}
+
+
+.banner__dot .swiper-pagination-bullet {
+  width: 8px !important;
+  height: 8px !important;
+  margin: 0 3px !important;
+}
+
+.banner__dot .swiper-pagination-bullet-active {
+  width: 8px !important;
+  height: 8px !important;
 }
