@@ -298,7 +298,7 @@ function ChooseUs() {
           right: 2rem;
           width: 36px;
           height: 36px;
-          color:  #ffffffff;
+          color: #fff !important; /* Force white color */
           background: #121c27;
           border-radius: 50%;
           display: flex;
@@ -306,7 +306,6 @@ function ChooseUs() {
           justify-content: center;
           font-weight: 600;
           font-size: 14px;
-          
         }
 
         .choose-one__elegant-content {
@@ -342,7 +341,7 @@ function ChooseUs() {
             width: 32px;
             height: 32px;
             font-size: 12px;
-       style
+          }
         }
       `}</style>
     </>

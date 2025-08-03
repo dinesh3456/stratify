@@ -5,7 +5,6 @@ const AccordionItem = ({
   title,
   number,
   content,
-  imageSrc,
   delay,
   isActive,
   onClick,
@@ -33,9 +32,7 @@ const AccordionItem = ({
           <div className="shape">
             <img src="assets/images/shape/hz-accordion-shape.png" alt="shape" />
           </div>
-          <div className="image">
-            <img src={imageSrc} alt="image" />
-          </div>
+          {/* Removed image section */}
         </div>
       </div>
     )}
@@ -51,7 +48,6 @@ const HorizontalAccordion = () => {
       number: "01",
       content:
         "Seamlessly migrate your infrastructure to the cloud and harness the power of data with engineered solutions that unlock agility and insight. From assessment to optimization, we ensure your cloud journey is secure and efficient.",
-      imageSrc: "assets/images/service/service-one-image1.jpg",
       delay: "0ms",
     },
     {
@@ -59,7 +55,6 @@ const HorizontalAccordion = () => {
       number: "02",
       content:
         "Future-ready AI capabilities to keep you ahead in the digital surge. We empower your business with AI-driven culture that drives long-term, sustainable growth through responsible AI solutions.",
-      imageSrc: "assets/images/service/service-one-image2.jpg",
       delay: "120ms",
     },
     {
@@ -67,7 +62,6 @@ const HorizontalAccordion = () => {
       number: "03",
       content:
         "Scalable, flexible and fully managed IT solutions across cybersecurity, risk, network, cloud, and support. Simplify your IT environment while focusing on growth and customer acquisition.",
-      imageSrc: "assets/images/service/service-one-image3.jpg",
       delay: "240ms",
     },
     {
@@ -75,7 +69,6 @@ const HorizontalAccordion = () => {
       number: "04",
       content:
         "Power your strategy with high-volume, accurate, and compliant data. Transform raw data into actionable insights with advanced analytics, predictive modeling, and interactive dashboards that drive strategic decision-making.",
-      imageSrc: "assets/images/service/service-one-image4.jpg",
       delay: "360ms",
     },
     {
@@ -83,7 +76,6 @@ const HorizontalAccordion = () => {
       number: "05",
       content:
         "Transform software portfolios with comprehensive product engineering. From ideation to deployment, we deliver resilient, future-ready solutions using cutting-edge technologies and agile methodologies.",
-      imageSrc: "assets/images/service/service-one-image1.jpg",
       delay: "480ms",
     },
   ];
@@ -104,7 +96,6 @@ const HorizontalAccordion = () => {
                 title={item.title}
                 number={item.number}
                 content={item.content}
-                imageSrc={item.imageSrc}
                 delay={item.delay}
                 isActive={activeIndex === index}
                 onClick={() =>
