@@ -49,14 +49,19 @@ const ServiceSidebar = ({ activeService }) => {
           <div className="help-shape-1" />
           <div className="help-shape-2" />
           <h2 className="help-title">
-            Contact with <br /> us for any <br /> advice
+            Need help? <br /> Let's talk to <br /> our experts
           </h2>
           <div className="help-icon">
             <span className="fa-regular fa-headset" />
           </div>
           <div className="help-contact">
-            <p>Need help? Talk to an expert</p>
-            <Link href="/contact">+91 9900297673</Link>
+            <Link
+              href="/contact"
+              className="btn btn-dark mt-2 w-100"
+              style={{ whiteSpace: "nowrap", padding: "10px 20px" }}
+            >
+              Contact Us
+            </Link>
           </div>
         </div>
         <div className="sidebar-widget service-sidebar-single mt-4">
