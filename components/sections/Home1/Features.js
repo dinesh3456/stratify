@@ -181,21 +181,6 @@ function Features() {
   return (
     <>
       <section id="feature-menu" className="feature-area pb-130">
-        {/* Text Section */}
-        <div className="container">
-          <div
-            className="feature__text wow fadeInUp mt-50"
-            data-wow-delay="00ms"
-            data-wow-duration="1500ms"
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <span>WORK PROCESS</span>
-          </div>
-        </div>
         <div className="feature__wrp">
           <div className="row g-0">
             {features.map((feature, index) => (
@@ -207,6 +192,19 @@ function Features() {
                 description={feature.description}
               />
             ))}
+          </div>
+        </div>
+        <div className="container">
+          <div
+            className="feature__text wow fadeInUp mt-50"
+            data-wow-delay="00ms"
+            data-wow-duration="1500ms"
+          >
+            <span>HURRY</span>
+            <p>
+              Choose from our selection of the best places.{" "}
+              <Link href="/page-service-details">Get a project in mind?</Link>
+            </p>
           </div>
         </div>
       </section>
