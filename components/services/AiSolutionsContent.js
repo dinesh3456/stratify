@@ -1,58 +1,418 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import ServiceAccordion from "./ServiceAccordion";
 
+// Enhanced Professional SVG Icons with theme colors
+const AgenticAiIcon = ({ isHovered, isVisible }) => (
+  <svg width="60" height="60" viewBox="0 0 60 60" className="ai-icon-svg">
+    <defs>
+      <linearGradient id="agenticGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor={isHovered ? "#1e293b" : "#121C27"} />
+        <stop offset="100%" stopColor={isHovered ? "#334155" : "#3A5063"} />
+      </linearGradient>
+    </defs>
+    <rect
+      x="15"
+      y="15"
+      width="30"
+      height="30"
+      rx="8"
+      fill="none"
+      stroke="url(#agenticGradient)"
+      strokeWidth="2"
+      strokeDasharray="120"
+      strokeDashoffset={isVisible ? "0" : "120"}
+      className="ai-icon-rect"
+    />
+    <circle cx="25" cy="25" r="3" fill="url(#agenticGradient)" />
+    <circle cx="35" cy="25" r="3" fill="url(#agenticGradient)" />
+    <path
+      d="M22 35 Q30 32 38 35"
+      stroke="url(#agenticGradient)"
+      strokeWidth="2"
+      fill="none"
+    />
+    <rect
+      x="28"
+      y="18"
+      width="4"
+      height="4"
+      fill="url(#agenticGradient)"
+      className="ai-icon-dot"
+    />
+  </svg>
+);
+
+const MachineLearningIcon = ({ isHovered, isVisible }) => (
+  <svg width="60" height="60" viewBox="0 0 60 60" className="ai-icon-svg">
+    <defs>
+      <linearGradient id="mlGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor={isHovered ? "#1e293b" : "#121C27"} />
+        <stop offset="100%" stopColor={isHovered ? "#334155" : "#3A5063"} />
+      </linearGradient>
+    </defs>
+    <g className={`ai-icon-group ${isHovered ? "hovered" : ""}`}>
+      <circle
+        cx="20"
+        cy="20"
+        r="6"
+        fill="none"
+        stroke="url(#mlGradient)"
+        strokeWidth="2"
+      />
+      <circle
+        cx="40"
+        cy="20"
+        r="6"
+        fill="none"
+        stroke="url(#mlGradient)"
+        strokeWidth="2"
+      />
+      <circle
+        cx="20"
+        cy="40"
+        r="6"
+        fill="none"
+        stroke="url(#mlGradient)"
+        strokeWidth="2"
+      />
+      <circle
+        cx="40"
+        cy="40"
+        r="6"
+        fill="none"
+        stroke="url(#mlGradient)"
+        strokeWidth="2"
+      />
+      <path
+        d="M26 20 L34 20 M20 26 L20 34 M26 40 L34 40 M40 26 L40 34"
+        stroke="url(#mlGradient)"
+        strokeWidth="2"
+        strokeDasharray="40"
+        strokeDashoffset={isVisible ? "0" : "40"}
+        className="ai-icon-connections"
+      />
+      <circle cx="20" cy="20" r="2" fill="url(#mlGradient)" />
+      <circle cx="40" cy="20" r="2" fill="url(#mlGradient)" />
+      <circle cx="20" cy="40" r="2" fill="url(#mlGradient)" />
+      <circle cx="40" cy="40" r="2" fill="url(#mlGradient)" />
+    </g>
+  </svg>
+);
+
+const NLPIcon = ({ isHovered, isVisible }) => (
+  <svg width="60" height="60" viewBox="0 0 60 60" className="ai-icon-svg">
+    <defs>
+      <linearGradient id="nlpGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor={isHovered ? "#1e293b" : "#121C27"} />
+        <stop offset="100%" stopColor={isHovered ? "#334155" : "#3A5063"} />
+      </linearGradient>
+    </defs>
+    <rect
+      x="10"
+      y="25"
+      width="40"
+      height="15"
+      rx="7"
+      fill="none"
+      stroke="url(#nlpGradient)"
+      strokeWidth="2"
+      className={`ai-icon-rect ${isHovered ? "hovered" : ""}`}
+    />
+    <rect x="15" y="15" width="8" height="4" rx="2" fill="url(#nlpGradient)" />
+    <rect x="26" y="15" width="8" height="4" rx="2" fill="url(#nlpGradient)" />
+    <rect x="37" y="15" width="8" height="4" rx="2" fill="url(#nlpGradient)" />
+    <path
+      d="M15 30 Q30 27 45 30"
+      stroke="url(#nlpGradient)"
+      strokeWidth="2"
+      fill="none"
+      strokeDasharray="35"
+      strokeDashoffset={isVisible ? "0" : "35"}
+      className="ai-icon-wave"
+    />
+  </svg>
+);
+
+const ComputerVisionIcon = ({ isHovered, isVisible }) => (
+  <svg width="60" height="60" viewBox="0 0 60 60" className="ai-icon-svg">
+    <defs>
+      <linearGradient id="cvGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor={isHovered ? "#1e293b" : "#121C27"} />
+        <stop offset="100%" stopColor={isHovered ? "#334155" : "#3A5063"} />
+      </linearGradient>
+    </defs>
+    <rect
+      x="10"
+      y="15"
+      width="40"
+      height="30"
+      rx="5"
+      fill="none"
+      stroke="url(#cvGradient)"
+      strokeWidth="2"
+      className={`ai-icon-eye ${isHovered ? "hovered" : ""}`}
+    />
+    <circle
+      cx="30"
+      cy="30"
+      r="8"
+      fill="none"
+      stroke="url(#cvGradient)"
+      strokeWidth="2"
+    />
+    <circle cx="30" cy="30" r="4" fill="url(#cvGradient)" />
+    <path
+      d="M15 20 L25 20 M35 20 L45 20"
+      stroke="url(#cvGradient)"
+      strokeWidth="2"
+      strokeDasharray="20"
+      strokeDashoffset={isVisible ? "0" : "20"}
+      className="ai-icon-scan"
+    />
+  </svg>
+);
+
+const PredictiveIcon = ({ isHovered, isVisible }) => (
+  <svg width="60" height="60" viewBox="0 0 60 60" className="ai-icon-svg">
+    <defs>
+      <linearGradient
+        id="predictiveGradient"
+        x1="0%"
+        y1="0%"
+        x2="100%"
+        y2="100%"
+      >
+        <stop offset="0%" stopColor={isHovered ? "#1e293b" : "#121C27"} />
+        <stop offset="100%" stopColor={isHovered ? "#334155" : "#3A5063"} />
+      </linearGradient>
+    </defs>
+    <rect
+      x="10"
+      y="15"
+      width="40"
+      height="30"
+      rx="3"
+      fill="none"
+      stroke="url(#predictiveGradient)"
+      strokeWidth="2"
+    />
+    <path
+      d="M15 35 Q25 25 30 30 Q35 20 45 25"
+      stroke="url(#predictiveGradient)"
+      strokeWidth="3"
+      fill="none"
+      strokeDasharray="50"
+      strokeDashoffset={isVisible ? "0" : "50"}
+      className={`ai-icon-chart ${isHovered ? "hovered" : ""}`}
+    />
+    <circle
+      cx="20"
+      cy="32"
+      r="2"
+      fill="url(#predictiveGradient)"
+      className="ai-icon-point"
+    />
+    <circle
+      cx="30"
+      cy="30"
+      r="2"
+      fill="url(#predictiveGradient)"
+      className="ai-icon-point"
+    />
+    <circle
+      cx="40"
+      cy="25"
+      r="2"
+      fill="url(#predictiveGradient)"
+      className="ai-icon-point"
+    />
+  </svg>
+);
+
+const AutomationIcon = ({ isHovered, isVisible }) => (
+  <svg width="60" height="60" viewBox="0 0 60 60" className="ai-icon-svg">
+    <defs>
+      <linearGradient
+        id="automationGradient"
+        x1="0%"
+        y1="0%"
+        x2="100%"
+        y2="100%"
+      >
+        <stop offset="0%" stopColor={isHovered ? "#1e293b" : "#121C27"} />
+        <stop offset="100%" stopColor={isHovered ? "#334155" : "#3A5063"} />
+      </linearGradient>
+    </defs>
+    <g className={`ai-icon-gears ${isHovered ? "hovered" : ""}`}>
+      <circle
+        cx="25"
+        cy="25"
+        r="10"
+        fill="none"
+        stroke="url(#automationGradient)"
+        strokeWidth="2"
+      />
+      <circle
+        cx="35"
+        cy="35"
+        r="8"
+        fill="none"
+        stroke="url(#automationGradient)"
+        strokeWidth="2"
+      />
+      <path
+        d="M25 15 L25 35 M15 25 L35 25"
+        stroke="url(#automationGradient)"
+        strokeWidth="1"
+      />
+      <path
+        d="M35 27 L35 43 M27 35 L43 35"
+        stroke="url(#automationGradient)"
+        strokeWidth="1"
+      />
+      <circle cx="25" cy="25" r="3" fill="url(#automationGradient)" />
+      <circle cx="35" cy="35" r="2" fill="url(#automationGradient)" />
+    </g>
+  </svg>
+);
+
+// Particle Background Component
+const ParticleBackground = () => (
+  <div className="ai-particle-container">
+    {Array.from({ length: 12 }).map((_, i) => (
+      <div
+        key={i}
+        className="ai-particle"
+        style={{
+          left: `${Math.random() * 100}%`,
+          animationDelay: `${Math.random() * 10}s`,
+          animationDuration: `${10 + Math.random() * 20}s`,
+        }}
+      />
+    ))}
+  </div>
+);
+
+// Custom hook for intersection observer
+const useIntersectionObserver = (threshold = 0.2) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [threshold]);
+
+  return [ref, isVisible];
+};
+
+// Custom hook for media query
+const useMediaQuery = (query) => {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    if (media.matches !== matches) {
+      setMatches(media.matches);
+    }
+    const listener = () => setMatches(media.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [matches, query]);
+
+  return matches;
+};
+
 const AiSolutionsContent = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [activeCard, setActiveCard] = useState(null);
   const [flippedCard, setFlippedCard] = useState(null);
+  const [capabilitiesRef, isCapabilitiesVisible] = useIntersectionObserver(0.2);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const capabilities = [
     {
       id: 1,
-      icon: "fas fa-robot",
+      icon: AgenticAiIcon,
       title: "Agentic AI Solutions",
       details: [
         "Building AI First products that Think, Learn and Scale",
         "Real-time contextual agents that automate workflows",
+        "Autonomous decision-making systems",
+        "Intelligent process optimization",
       ],
     },
     {
       id: 2,
-      icon: "fas fa-brain",
+      icon: MachineLearningIcon,
       title: "Machine Learning & Deep Learning Models",
       details: [
-        "Deep learning",
-        "Predictive Analysis",
-        "Data Mining",
-        "Statistical Modelling",
+        "Deep learning neural networks",
+        "Predictive Analysis algorithms",
+        "Advanced Data Mining techniques",
+        "Statistical Modelling frameworks",
       ],
     },
     {
       id: 3,
-      icon: "fas fa-comments",
+      icon: NLPIcon,
       title: "Natural Language Processing (NLP)",
       details: [
         "Text analysis and sentiment detection",
         "Language understanding and generation",
+        "Conversational AI interfaces",
+        "Multi-language processing capabilities",
       ],
     },
     {
       id: 4,
-      icon: "fas fa-eye",
+      icon: ComputerVisionIcon,
       title: "Computer Vision & Image Recognition",
-      details: ["Image and video analysis", "Object detection and recognition"],
+      details: [
+        "Image and video analysis systems",
+        "Object detection and recognition",
+        "Real-time visual processing",
+        "Advanced pattern recognition",
+      ],
     },
     {
       id: 5,
-      icon: "fas fa-chart-line",
+      icon: PredictiveIcon,
       title: "Predictive Analytics & Forecasting",
-      details: ["Future trend analysis", "Risk assessment and mitigation"],
+      details: [
+        "Future trend analysis models",
+        "Risk assessment and mitigation",
+        "Business intelligence insights",
+        "Real-time data forecasting",
+      ],
     },
     {
       id: 6,
-      icon: "fas fa-cogs",
+      icon: AutomationIcon,
       title: "Intelligent Automation & RPA",
-      details: ["Process automation and optimization", "Workflow intelligence"],
+      details: [
+        "Process automation and optimization",
+        "Workflow intelligence systems",
+        "Robotic process automation",
+        "Smart task orchestration",
+      ],
     },
   ];
 
@@ -115,19 +475,19 @@ const AiSolutionsContent = () => {
         </svg>
       ),
       backContent: {
-        title: "Financial Intelligence Suite",
+        title: "Intelligent Financial Systems",
         features: [
           "Real-time fraud detection algorithms",
-          "Automated risk assessment models",
-          "Market trend prediction systems",
-          "Compliance monitoring solutions",
+          "Risk assessment and management",
+          "Automated compliance monitoring",
+          "Predictive market analysis",
         ],
       },
     },
     {
       id: 3,
-      title: "Manufacturing Intelligence",
-      subtitle: "Intelligent production optimization and maintenance",
+      title: "Smart Manufacturing",
+      subtitle: "Industrial automation and process optimization",
       frontIcon: (
         <svg
           width="60"
@@ -170,10 +530,48 @@ const AiSolutionsContent = () => {
     },
   ];
 
+  const handleCardHover = useCallback(
+    (id) => {
+      if (!isMobile) {
+        setHoveredCard(id);
+      }
+    },
+    [isMobile]
+  );
+
+  const handleCardLeave = useCallback(() => {
+    if (!isMobile) {
+      setHoveredCard(null);
+    }
+  }, [isMobile]);
+
+  const handleCardClick = useCallback(
+    (id) => {
+      if (isMobile) {
+        setActiveCard(activeCard === id ? null : id);
+      }
+    },
+    [isMobile, activeCard]
+  );
+
+  const getCardClassName = (capability, index) => {
+    let className = "ai-capability-card";
+
+    if (isCapabilitiesVisible) {
+      className += " visible";
+    }
+
+    if (hoveredCard === capability.id || activeCard === capability.id) {
+      className += " hovered";
+    }
+
+    return className;
+  };
+
   return (
     <div className="services-details__content position-relative overflow-hidden px-3">
-      {/* Step 1 & 2: Hero Banner with updated images */}
-      <div className="ai-hero-banner mb-4">
+      {/* Hero Banner with enhanced overlay effect */}
+      <div className="ai-hero-banner mb-4 position-relative">
         <img
           className="w-100 rounded"
           src="/assets/images/aiservice/ai-solutions-hero.jpg"
@@ -182,7 +580,7 @@ const AiSolutionsContent = () => {
         />
       </div>
 
-      {/* Step 3: Updated main content */}
+      {/* Main Content */}
       <h3 className="mt-4">AI Solutions & Machine Learning</h3>
       <p>
         Future-ready AI capabilities to keep you ahead in the digital surge. We
@@ -201,133 +599,96 @@ const AiSolutionsContent = () => {
         decision-making for your organization.
       </p>
 
-      {/* Step 4: Enhanced AI Capabilities with Hover Animations */}
-      <div className="ai-capabilities mt-5">
-        <h4 className="mb-4">Our AI Capabilities</h4>
-        <div className="row">
-          {capabilities.map((capability) => (
-            <div key={capability.id} className="col-lg-4 col-md-6 mb-4">
-              <div
-                className="capability-card h-100 p-4 border rounded position-relative overflow-hidden"
-                style={{
-                  backgroundColor:
-                    hoveredCard === capability.id ? "#3A5063" : "#f8f9fa",
-                  cursor: "pointer",
-                  transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                  transform:
-                    hoveredCard === capability.id
-                      ? "translateY(-8px)"
-                      : "translateY(0)",
-                  boxShadow:
-                    hoveredCard === capability.id
-                      ? "0 20px 40px rgba(58, 80, 99, 0.2)"
-                      : "0 2px 10px rgba(0, 0, 0, 0.1)",
-                  borderColor:
-                    hoveredCard === capability.id ? "#3A5063" : "#e9ecef",
-                  minHeight: hoveredCard === capability.id ? "280px" : "200px",
-                }}
-                onMouseEnter={() => setHoveredCard(capability.id)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                {/* Icon */}
-                <div className="capability-icon mb-3 text-center">
-                  <i
-                    className={capability.icon}
+      {/* Enhanced AI Capabilities Section - 3x2 layout with container only for this section */}
+      <div
+        className="ai-capabilities-container mt-5 p-4 position-relative"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(226, 232, 240, 0.6) 100%)",
+          borderRadius: "20px",
+          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+        }}
+      >
+        <ParticleBackground />
+
+        <div className="ai-capabilities" ref={capabilitiesRef}>
+          <h4 className="ai-capabilities-title text-center mb-4 position-relative">
+            Our AI Capabilities
+          </h4>
+          <div className="row">
+            {capabilities.map((capability, index) => {
+              const IconComponent = capability.icon;
+              const isHovered =
+                hoveredCard === capability.id || activeCard === capability.id;
+
+              return (
+                <div key={capability.id} className="col-lg-4 col-md-6 mb-4">
+                  <div
+                    className={getCardClassName(capability, index)}
                     style={{
-                      fontSize: "2.5rem",
-                      color:
-                        hoveredCard === capability.id ? "white" : "#3A5063",
-                      transition: "color 0.3s ease",
+                      animationDelay: `${index * 0.15}s`,
                     }}
-                  />
-                </div>
+                    onMouseEnter={() => handleCardHover(capability.id)}
+                    onMouseLeave={handleCardLeave}
+                    onClick={() => handleCardClick(capability.id)}
+                  >
+                    {/* Background Gradient */}
+                    <div className="ai-card-background" />
 
-                {/* Title */}
-                <h5
-                  className="capability-title text-center mb-3"
-                  style={{
-                    color: hoveredCard === capability.id ? "white" : "#333",
-                    transition: "color 0.3s ease",
-                    fontWeight: "600",
-                    fontSize: "1.1rem",
-                  }}
-                >
-                  {capability.title}
-                </h5>
+                    {/* Shimmer Effect */}
+                    <div className="ai-card-shimmer" />
 
-                {/* Details (revealed on hover) */}
-                <ul
-                  className="list-unstyled mt-3"
-                  style={{
-                    maxHeight: hoveredCard === capability.id ? "200px" : "0",
-                    opacity: hoveredCard === capability.id ? "1" : "0",
-                    overflow: "hidden",
-                    transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                    transform:
-                      hoveredCard === capability.id
-                        ? "translateY(0)"
-                        : "translateY(-20px)",
-                  }}
-                >
-                  {capability.details.map((detail, index) => (
-                    <li
-                      key={index}
-                      className="mb-2 d-flex align-items-start"
-                      style={{
-                        transitionDelay:
-                          hoveredCard === capability.id
-                            ? `${index * 0.1}s`
-                            : "0s",
-                        transition: "all 0.3s ease",
-                      }}
-                    >
-                      <i
-                        className="fas fa-check-circle me-2 flex-shrink-0"
-                        style={{
-                          color:
-                            hoveredCard === capability.id
-                              ? "rgba(255, 255, 255, 0.8)"
-                              : "#3A5063",
-                          transition: "color 0.3s ease",
-                          marginTop: "2px",
-                        }}
+                    {/* Icon */}
+                    <div className="ai-icon-container text-center mb-3">
+                      <IconComponent
+                        isHovered={isHovered}
+                        isVisible={isCapabilitiesVisible}
                       />
-                      <span
-                        style={{
-                          color:
-                            hoveredCard === capability.id
-                              ? "rgba(255, 255, 255, 0.9)"
-                              : "#6c757d",
-                          transition: "color 0.3s ease",
-                          fontSize: "0.9rem",
-                          lineHeight: "1.4",
-                        }}
-                      >
-                        {detail}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
+                    </div>
 
-                {/* Subtle animation indicator */}
-                <div
-                  className="position-absolute bottom-0 start-0 w-100"
-                  style={{
-                    height: "3px",
-                    background: "linear-gradient(90deg, #121C27, #3A5063)",
-                    transform:
-                      hoveredCard === capability.id ? "scaleX(1)" : "scaleX(0)",
-                    transformOrigin: "left",
-                    transition: "transform 0.3s ease",
-                  }}
-                />
-              </div>
-            </div>
-          ))}
+                    {/* Title */}
+                    <h5 className="ai-card-title text-center mb-3">
+                      {capability.title}
+                    </h5>
+
+                    {/* Details with staggered animation */}
+                    <ul
+                      className={`ai-details-list list-unstyled ${
+                        isHovered ? "visible" : ""
+                      }`}
+                    >
+                      {capability.details.map((detail, detailIndex) => (
+                        <li
+                          key={detailIndex}
+                          className="ai-detail-item mb-2 d-flex align-items-start"
+                          style={{
+                            animationDelay: isHovered
+                              ? `${detailIndex * 0.1}s`
+                              : "0s",
+                          }}
+                        >
+                          <i className="fas fa-check-circle ai-check-icon me-2 flex-shrink-0" />
+                          <span>{detail}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Bottom Gradient Indicator */}
+                    <div className="ai-card-indicator position-absolute bottom-0 start-0 w-100" />
+
+                    {/* Floating Elements */}
+                    <div className="ai-floating-element-1 position-absolute" />
+                    <div className="ai-floating-element-2 position-absolute" />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
 
-      {/* Step 5: AI Implementation Process */}
+      {/* AI Implementation Process */}
       <div className="content mt-5">
         <div className="text">
           <h3>AI Implementation Process</h3>
@@ -336,34 +697,48 @@ const AiSolutionsContent = () => {
             integration of intelligent solutions into your existing workflows
             and systems.
           </p>
-          <blockquote className="blockquote-one">
+          <blockquote
+            className="blockquote-one"
+            style={{
+              background: "linear-gradient(135deg, #121C27 0%, #334155 100%)",
+              color: "white",
+              padding: "2rem",
+              borderRadius: "16px",
+              fontStyle: "italic",
+              fontSize: "1.1rem",
+              lineHeight: "1.6",
+              borderLeft: "4px solid rgba(255, 255, 255, 0.3)",
+              margin: "2rem 0",
+              position: "relative",
+              overflow: "hidden",
+            }}
+          >
             We follow responsible AI principles, ensuring ethical
             implementation, transparency, and bias mitigation throughout the
             development and deployment process.
           </blockquote>
         </div>
-      </div>
 
-      {/* Step 7: Technology Stack - Placeholder for future detailed image */}
-
-      <div className="ai-implementation-diagram mt-4">
-        <div className="tech-stack-placeholder p-4 bg-light border rounded text-center">
-          <img
-            className="w-100"
-            src="/assets/images/aiservice/ai-tech-stack.jpg"
-            alt="AI Technology Stack"
-            style={{ maxHeight: "300px", objectFit: "contain" }}
-          />
-          <p className="mt-3 text-muted">
-            <em>
-              Comprehensive technology stack diagram will be updated with
-              detailed architecture
-            </em>
-          </p>
+        {/* Technology Stack - Add the image back */}
+        <div className="ai-implementation-diagram mt-4">
+          <div className="tech-stack-placeholder p-4 bg-light border rounded text-center">
+            <img
+              className="w-100"
+              src="/assets/images/aiservice/ai-tech-stack.jpg"
+              alt="AI Technology Stack"
+              style={{ maxHeight: "300px", objectFit: "contain" }}
+            />
+            <p className="mt-3 text-muted">
+              <em>
+                Comprehensive technology stack diagram will be updated with
+                detailed architecture
+              </em>
+            </p>
+          </div>
         </div>
       </div>
 
-      {/* Use Cases / Portfolio Examples - Fixed flip cards section */}
+      {/* AI Solutions in Action Section - Original Implementation */}
       <div className="ai-use-cases mt-5 mb-5">
         <h3 className="mb-4">AI Solutions in Action</h3>
         <div className="row" style={{ minHeight: "320px" }}>
@@ -434,12 +809,12 @@ const AiSolutionsContent = () => {
                       height: "100%",
                       backfaceVisibility: "hidden",
                       transform: "rotateY(180deg)",
-                      border: "1px solid #3A5063",
+                      border: "1px solid #121C27",
                       borderRadius: "8px",
                       padding: "2rem",
-                      backgroundColor: "#3A5063",
+                      backgroundColor: "#121C27",
                       color: "white",
-                      boxShadow: "0 10px 30px rgba(58, 80, 99, 0.3)",
+                      boxShadow: "0 10px 30px rgba(18, 28, 39, 0.3)",
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "center",
@@ -481,7 +856,7 @@ const AiSolutionsContent = () => {
         </div>
       </div>
 
-      {/* Step 8: FAQ Section */}
+      {/* FAQ Section - Keep original implementation */}
       <div className="innerpage mt-5 pt-4">
         <h3>Frequently Asked Questions</h3>
         <p>
@@ -491,18 +866,154 @@ const AiSolutionsContent = () => {
         <ServiceAccordion serviceType="ai-solutions" />
       </div>
 
-      {/* Step 9: Footer CTA Section */}
-      <div className="ai-cta-section mt-5 p-4 bg-light rounded text-white text-center">
-        <h4 className="mb-3">Ready to Transform Your Business with AI?</h4>
-        <p className="mb-4">
-          Let's discuss how our AI solutions can drive growth and innovation for
-          your organization.
-        </p>
-        <div className="cta-buttons">
-          <Link href="/contact" className="btn btn-dark btn-lg me-3">
-            Get Started Today
-          </Link>
+      {/* Footer CTA Section with improved visibility and theme colors */}
+      <div
+        className="ai-cta-section mt-5 p-5 rounded text-center"
+        style={{
+          background: "linear-gradient(135deg, #121C27 0%, #334155 100%)",
+          borderRadius: "24px",
+          position: "relative",
+          overflow: "hidden",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+        }}
+      >
+        {/* Background Pattern */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundImage: `
+            radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+            radial-gradient(circle at 75% 75%, rgba(58, 80, 99, 0.3) 0%, transparent 50%)
+          `,
+            pointerEvents: "none",
+            zIndex: 1,
+          }}
+        ></div>
+
+        <div className="position-relative" style={{ zIndex: 2 }}>
+          <h4
+            className="mb-4 text-white"
+            style={{
+              fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
+              fontWeight: "700",
+              lineHeight: "1.3",
+              textShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
+            }}
+          >
+            Ready to Transform Your Business with AI?
+          </h4>
+
+          <p
+            className="mb-4 text-white"
+            style={{
+              fontSize: "1.1rem",
+              lineHeight: "1.6",
+              opacity: "0.95",
+              maxWidth: "600px",
+              margin: "0 auto 2rem auto",
+              textShadow: "0 1px 5px rgba(0, 0, 0, 0.2)",
+            }}
+          >
+            Let's discuss how our AI solutions can drive growth and innovation
+            for your organization.
+          </p>
+
+          <div className="cta-buttons">
+            <Link
+              href="/contact"
+              className="btn btn-lg text-decoration-none d-inline-flex align-items-center gap-3"
+              style={{
+                background: "linear-gradient(135deg, #3A5063 0%, #4a5568 100%)",
+                color: "#ffffff", // Explicitly set to white
+                padding: "1rem 2.5rem",
+                borderRadius: "50px",
+                fontWeight: "600",
+                fontSize: "1.1rem",
+                transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
+                border: "2px solid rgba(255, 255, 255, 0.2)",
+                boxShadow:
+                  "0 10px 30px rgba(58, 80, 99, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+                textShadow: "0 1px 3px rgba(0, 0, 0, 0.2)",
+                position: "relative",
+                overflow: "hidden",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = "translateY(-3px)";
+                e.target.style.boxShadow =
+                  "0 15px 40px rgba(58, 80, 99, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)";
+                e.target.style.background =
+                  "linear-gradient(135deg, #4a5568 0%, #5a6478 100%)";
+                e.target.style.color = "#ffffff"; // Ensure white on hover
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = "translateY(0)";
+                e.target.style.boxShadow =
+                  "0 10px 30px rgba(58, 80, 99, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)";
+                e.target.style.background =
+                  "linear-gradient(135deg, #3A5063 0%, #4a5568 100%)";
+                e.target.style.color = "#ffffff"; // Ensure white when hover ends
+              }}
+            >
+              <span style={{ color: "#ffffff" }}>Get Started Today</span>
+              <i
+                className="fas fa-arrow-right"
+                style={{
+                  transition: "transform 0.3s ease",
+                  color: "#ffffff", // Ensure icon is also white
+                }}
+              />
+            </Link>
+          </div>
         </div>
+
+        {/* Decorative Elements */}
+        <div
+          style={{
+            position: "absolute",
+            top: "20px",
+            right: "20px",
+            width: "60px",
+            height: "60px",
+            background:
+              "radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)",
+            borderRadius: "50%",
+            animation: "pulse 3s ease-in-out infinite",
+            zIndex: 1,
+          }}
+        ></div>
+
+        <div
+          style={{
+            position: "absolute",
+            bottom: "20px",
+            left: "20px",
+            width: "40px",
+            height: "40px",
+            background:
+              "radial-gradient(circle, rgba(58, 80, 99, 0.3) 0%, transparent 70%)",
+            borderRadius: "50%",
+            animation: "pulse 3s ease-in-out infinite 1.5s",
+            zIndex: 1,
+          }}
+        ></div>
+
+        <style jsx>{`
+          @keyframes pulse {
+            0%,
+            100% {
+              transform: scale(1);
+              opacity: 0.6;
+            }
+            50% {
+              transform: scale(1.2);
+              opacity: 0.3;
+            }
+          }
+        `}</style>
       </div>
     </div>
   );
