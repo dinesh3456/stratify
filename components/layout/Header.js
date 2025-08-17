@@ -17,12 +17,8 @@ const Header = ({ scroll }) => {
           <div className="header-top__wrp">
             <ul className="header-top__links">
               <li>
-                <i className="fa-light fa-location-dot" />
-                <Link href="/">121 King Street, Melbourne</Link>
-              </li>
-              <li>
                 <i className="fa-light fa-envelope-open-text" />
-                <Link href="/">info.company@gmail.com</Link>
+                <Link href="/">operations@strat1.ai</Link>
               </li>
             </ul>
             <div className="header-top__socials">
@@ -61,7 +57,7 @@ const Header = ({ scroll }) => {
                   </defs>
                 </svg>
               </Link>
-              <Link href="/">
+              <Link href="https://www.linkedin.com/company/strat1consulting/">
                 <svg
                   width="13"
                   height="15"
@@ -191,20 +187,7 @@ const Header = ({ scroll }) => {
           </div>
           <div className="sidebar__contact-info mt-30">
             <h5 className="text-white mb-20">Contact Info</h5>
-            <ul>
-              <li>
-                <i className="fa-solid fa-location-dot" />
-                <Link href="/">121 King Street, Melbourne</Link>
-              </li>
-              <li className="py-2">
-                <i className="fa-solid fa-phone-volume" />
-                <Link href="tel:+912659302003">+91 2659302 003</Link>
-              </li>
-              <li>
-                <i className="fa-solid fa-paper-plane" />
-                <Link href="/">info.company@gmail.com</Link>
-              </li>
-            </ul>
+            <ul></ul>
           </div>
         </div>
       </div>
