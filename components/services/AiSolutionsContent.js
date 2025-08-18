@@ -2,280 +2,15 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import ServiceAccordion from "./ServiceAccordion";
 
-// Enhanced Professional SVG Icons with theme colors
-const AgenticAiIcon = ({ isHovered, isVisible }) => (
-  <svg width="60" height="60" viewBox="0 0 60 60" className="ai-icon-svg">
-    <defs>
-      <linearGradient id="agenticGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor={isHovered ? "#1e293b" : "#121C27"} />
-        <stop offset="100%" stopColor={isHovered ? "#334155" : "#3A5063"} />
-      </linearGradient>
-    </defs>
-    <rect
-      x="15"
-      y="15"
-      width="30"
-      height="30"
-      rx="8"
-      fill="none"
-      stroke="url(#agenticGradient)"
-      strokeWidth="2"
-      strokeDasharray="120"
-      strokeDashoffset={isVisible ? "0" : "120"}
-      className="ai-icon-rect"
-    />
-    <circle cx="25" cy="25" r="3" fill="url(#agenticGradient)" />
-    <circle cx="35" cy="25" r="3" fill="url(#agenticGradient)" />
-    <path
-      d="M22 35 Q30 32 38 35"
-      stroke="url(#agenticGradient)"
-      strokeWidth="2"
-      fill="none"
-    />
-    <rect
-      x="28"
-      y="18"
-      width="4"
-      height="4"
-      fill="url(#agenticGradient)"
-      className="ai-icon-dot"
-    />
-  </svg>
-);
-
-const MachineLearningIcon = ({ isHovered, isVisible }) => (
-  <svg width="60" height="60" viewBox="0 0 60 60" className="ai-icon-svg">
-    <defs>
-      <linearGradient id="mlGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor={isHovered ? "#1e293b" : "#121C27"} />
-        <stop offset="100%" stopColor={isHovered ? "#334155" : "#3A5063"} />
-      </linearGradient>
-    </defs>
-    <g className={`ai-icon-group ${isHovered ? "hovered" : ""}`}>
-      <circle
-        cx="20"
-        cy="20"
-        r="6"
-        fill="none"
-        stroke="url(#mlGradient)"
-        strokeWidth="2"
-      />
-      <circle
-        cx="40"
-        cy="20"
-        r="6"
-        fill="none"
-        stroke="url(#mlGradient)"
-        strokeWidth="2"
-      />
-      <circle
-        cx="20"
-        cy="40"
-        r="6"
-        fill="none"
-        stroke="url(#mlGradient)"
-        strokeWidth="2"
-      />
-      <circle
-        cx="40"
-        cy="40"
-        r="6"
-        fill="none"
-        stroke="url(#mlGradient)"
-        strokeWidth="2"
-      />
-      <path
-        d="M26 20 L34 20 M20 26 L20 34 M26 40 L34 40 M40 26 L40 34"
-        stroke="url(#mlGradient)"
-        strokeWidth="2"
-        strokeDasharray="40"
-        strokeDashoffset={isVisible ? "0" : "40"}
-        className="ai-icon-connections"
-      />
-      <circle cx="20" cy="20" r="2" fill="url(#mlGradient)" />
-      <circle cx="40" cy="20" r="2" fill="url(#mlGradient)" />
-      <circle cx="20" cy="40" r="2" fill="url(#mlGradient)" />
-      <circle cx="40" cy="40" r="2" fill="url(#mlGradient)" />
-    </g>
-  </svg>
-);
-
-const NLPIcon = ({ isHovered, isVisible }) => (
-  <svg width="60" height="60" viewBox="0 0 60 60" className="ai-icon-svg">
-    <defs>
-      <linearGradient id="nlpGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor={isHovered ? "#1e293b" : "#121C27"} />
-        <stop offset="100%" stopColor={isHovered ? "#334155" : "#3A5063"} />
-      </linearGradient>
-    </defs>
-    <rect
-      x="10"
-      y="25"
-      width="40"
-      height="15"
-      rx="7"
-      fill="none"
-      stroke="url(#nlpGradient)"
-      strokeWidth="2"
-      className={`ai-icon-rect ${isHovered ? "hovered" : ""}`}
-    />
-    <rect x="15" y="15" width="8" height="4" rx="2" fill="url(#nlpGradient)" />
-    <rect x="26" y="15" width="8" height="4" rx="2" fill="url(#nlpGradient)" />
-    <rect x="37" y="15" width="8" height="4" rx="2" fill="url(#nlpGradient)" />
-    <path
-      d="M15 30 Q30 27 45 30"
-      stroke="url(#nlpGradient)"
-      strokeWidth="2"
-      fill="none"
-      strokeDasharray="35"
-      strokeDashoffset={isVisible ? "0" : "35"}
-      className="ai-icon-wave"
-    />
-  </svg>
-);
-
-const ComputerVisionIcon = ({ isHovered, isVisible }) => (
-  <svg width="60" height="60" viewBox="0 0 60 60" className="ai-icon-svg">
-    <defs>
-      <linearGradient id="cvGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor={isHovered ? "#1e293b" : "#121C27"} />
-        <stop offset="100%" stopColor={isHovered ? "#334155" : "#3A5063"} />
-      </linearGradient>
-    </defs>
-    <rect
-      x="10"
-      y="15"
-      width="40"
-      height="30"
-      rx="5"
-      fill="none"
-      stroke="url(#cvGradient)"
-      strokeWidth="2"
-      className={`ai-icon-eye ${isHovered ? "hovered" : ""}`}
-    />
-    <circle
-      cx="30"
-      cy="30"
-      r="8"
-      fill="none"
-      stroke="url(#cvGradient)"
-      strokeWidth="2"
-    />
-    <circle cx="30" cy="30" r="4" fill="url(#cvGradient)" />
-    <path
-      d="M15 20 L25 20 M35 20 L45 20"
-      stroke="url(#cvGradient)"
-      strokeWidth="2"
-      strokeDasharray="20"
-      strokeDashoffset={isVisible ? "0" : "20"}
-      className="ai-icon-scan"
-    />
-  </svg>
-);
-
-const PredictiveIcon = ({ isHovered, isVisible }) => (
-  <svg width="60" height="60" viewBox="0 0 60 60" className="ai-icon-svg">
-    <defs>
-      <linearGradient
-        id="predictiveGradient"
-        x1="0%"
-        y1="0%"
-        x2="100%"
-        y2="100%"
-      >
-        <stop offset="0%" stopColor={isHovered ? "#1e293b" : "#121C27"} />
-        <stop offset="100%" stopColor={isHovered ? "#334155" : "#3A5063"} />
-      </linearGradient>
-    </defs>
-    <rect
-      x="10"
-      y="15"
-      width="40"
-      height="30"
-      rx="3"
-      fill="none"
-      stroke="url(#predictiveGradient)"
-      strokeWidth="2"
-    />
-    <path
-      d="M15 35 Q25 25 30 30 Q35 20 45 25"
-      stroke="url(#predictiveGradient)"
-      strokeWidth="3"
-      fill="none"
-      strokeDasharray="50"
-      strokeDashoffset={isVisible ? "0" : "50"}
-      className={`ai-icon-chart ${isHovered ? "hovered" : ""}`}
-    />
-    <circle
-      cx="20"
-      cy="32"
-      r="2"
-      fill="url(#predictiveGradient)"
-      className="ai-icon-point"
-    />
-    <circle
-      cx="30"
-      cy="30"
-      r="2"
-      fill="url(#predictiveGradient)"
-      className="ai-icon-point"
-    />
-    <circle
-      cx="40"
-      cy="25"
-      r="2"
-      fill="url(#predictiveGradient)"
-      className="ai-icon-point"
-    />
-  </svg>
-);
-
-const AutomationIcon = ({ isHovered, isVisible }) => (
-  <svg width="60" height="60" viewBox="0 0 60 60" className="ai-icon-svg">
-    <defs>
-      <linearGradient
-        id="automationGradient"
-        x1="0%"
-        y1="0%"
-        x2="100%"
-        y2="100%"
-      >
-        <stop offset="0%" stopColor={isHovered ? "#1e293b" : "#121C27"} />
-        <stop offset="100%" stopColor={isHovered ? "#334155" : "#3A5063"} />
-      </linearGradient>
-    </defs>
-    <g className={`ai-icon-gears ${isHovered ? "hovered" : ""}`}>
-      <circle
-        cx="25"
-        cy="25"
-        r="10"
-        fill="none"
-        stroke="url(#automationGradient)"
-        strokeWidth="2"
-      />
-      <circle
-        cx="35"
-        cy="35"
-        r="8"
-        fill="none"
-        stroke="url(#automationGradient)"
-        strokeWidth="2"
-      />
-      <path
-        d="M25 15 L25 35 M15 25 L35 25"
-        stroke="url(#automationGradient)"
-        strokeWidth="1"
-      />
-      <path
-        d="M35 27 L35 43 M27 35 L43 35"
-        stroke="url(#automationGradient)"
-        strokeWidth="1"
-      />
-      <circle cx="25" cy="25" r="3" fill="url(#automationGradient)" />
-      <circle cx="35" cy="35" r="2" fill="url(#automationGradient)" />
-    </g>
-  </svg>
-);
+// Import the new AI Capability Icons
+import {
+  AgenticAiIcon,
+  MachineLearningIcon,
+  NLPIcon,
+  ComputerVisionIcon,
+  PredictiveIcon,
+  AutomationIcon,
+} from "../icons/AiCapabilityIcons";
 
 // Particle Background Component
 const ParticleBackground = () => (
@@ -338,6 +73,111 @@ const useMediaQuery = (query) => {
   }, [matches, query]);
 
   return matches;
+};
+
+const StripeFlipCard = ({
+  capability,
+  index,
+  isVisible,
+  onHover,
+  onLeave,
+  onClick,
+  isMobile,
+  isHovered,
+}) => {
+  const IconComponent = capability.icon;
+  const numStripes = 6; // Number of horizontal stripes
+
+  return (
+    <div
+      className={`stripe-flip-card ${isVisible ? "visible" : ""} ${
+        isHovered ? "hovered" : ""
+      }`}
+      style={{
+        animationDelay: `${index * 0.15}s`,
+      }}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      onClick={onClick}
+    >
+      {/* Front Side Stripes */}
+      <div className="stripe-container front">
+        {Array.from({ length: numStripes }).map((_, stripeIndex) => (
+          <div
+            key={`front-${stripeIndex}`}
+            className="stripe front-stripe"
+            style={{
+              animationDelay: isHovered ? `${stripeIndex * 0.05}s` : "0s",
+              zIndex: numStripes - stripeIndex,
+            }}
+          >
+            <div className="stripe-content">
+              {/* Icon distributed across stripes 1-2 for better spacing */}
+              {(stripeIndex === 1 || stripeIndex === 2) && (
+                <div className="icon-stripe">
+                  {stripeIndex === 1 && (
+                    <IconComponent
+                      isHovered={isHovered}
+                      isVisible={isVisible}
+                    />
+                  )}
+                </div>
+              )}
+              {/* Title distributed across stripes 3-4 for better spacing */}
+              {(stripeIndex === 3 || stripeIndex === 4) && (
+                <div className="title-stripe">
+                  {stripeIndex === 3 && (
+                    <h5 className="card-title">{capability.title}</h5>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Back Side Stripes */}
+      <div className="stripe-container back">
+        {Array.from({ length: numStripes }).map((_, stripeIndex) => (
+          <div
+            key={`back-${stripeIndex}`}
+            className="stripe back-stripe"
+            style={{
+              animationDelay: isHovered ? `${stripeIndex * 0.05}s` : "0s",
+              zIndex: numStripes - stripeIndex,
+            }}
+          >
+            <div className="stripe-content">
+              {/* Title in the first stripe on the back */}
+              {stripeIndex === 0 && (
+                <div className="back-title-stripe">
+                  <h5 className="back-title">{capability.title}</h5>
+                </div>
+              )}
+              {/* Details in stripes 1-4 on the back */}
+              {stripeIndex >= 1 &&
+                stripeIndex <= 4 &&
+                capability.details[stripeIndex - 1] && (
+                  <div className="detail-stripe">
+                    <div className="detail-item">
+                      <i className="fas fa-check-circle check-icon" />
+                      <span>{capability.details[stripeIndex - 1]}</span>
+                    </div>
+                  </div>
+                )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Floating Elements */}
+      <div className="floating-element-1"></div>
+      <div className="floating-element-2"></div>
+
+      {/* Hover indicator */}
+      <div className="card-indicator" />
+    </div>
+  );
 };
 
 const AiSolutionsContent = () => {
@@ -554,20 +394,6 @@ const AiSolutionsContent = () => {
     [isMobile, activeCard]
   );
 
-  const getCardClassName = (capability, index) => {
-    let className = "ai-capability-card";
-
-    if (isCapabilitiesVisible) {
-      className += " visible";
-    }
-
-    if (hoveredCard === capability.id || activeCard === capability.id) {
-      className += " hovered";
-    }
-
-    return className;
-  };
-
   return (
     <div className="services-details__content position-relative overflow-hidden px-3">
       {/* Hero Banner with enhanced overlay effect */}
@@ -599,7 +425,7 @@ const AiSolutionsContent = () => {
         decision-making for your organization.
       </p>
 
-      {/* Enhanced AI Capabilities Section - 3x2 layout with container only for this section */}
+      {/* Enhanced AI Capabilities Section with Stripe Flip Animation */}
       <div
         className="ai-capabilities-container mt-5 p-4 position-relative"
         style={{
@@ -618,69 +444,21 @@ const AiSolutionsContent = () => {
           </h4>
           <div className="row">
             {capabilities.map((capability, index) => {
-              const IconComponent = capability.icon;
               const isHovered =
                 hoveredCard === capability.id || activeCard === capability.id;
 
               return (
                 <div key={capability.id} className="col-lg-4 col-md-6 mb-4">
-                  <div
-                    className={getCardClassName(capability, index)}
-                    style={{
-                      animationDelay: `${index * 0.15}s`,
-                    }}
-                    onMouseEnter={() => handleCardHover(capability.id)}
-                    onMouseLeave={handleCardLeave}
+                  <StripeFlipCard
+                    capability={capability}
+                    index={index}
+                    isVisible={isCapabilitiesVisible}
+                    onHover={() => handleCardHover(capability.id)}
+                    onLeave={handleCardLeave}
                     onClick={() => handleCardClick(capability.id)}
-                  >
-                    {/* Background Gradient */}
-                    <div className="ai-card-background" />
-
-                    {/* Shimmer Effect */}
-                    <div className="ai-card-shimmer" />
-
-                    {/* Icon */}
-                    <div className="ai-icon-container text-center mb-3">
-                      <IconComponent
-                        isHovered={isHovered}
-                        isVisible={isCapabilitiesVisible}
-                      />
-                    </div>
-
-                    {/* Title */}
-                    <h5 className="ai-card-title text-center mb-3">
-                      {capability.title}
-                    </h5>
-
-                    {/* Details with staggered animation */}
-                    <ul
-                      className={`ai-details-list list-unstyled ${
-                        isHovered ? "visible" : ""
-                      }`}
-                    >
-                      {capability.details.map((detail, detailIndex) => (
-                        <li
-                          key={detailIndex}
-                          className="ai-detail-item mb-2 d-flex align-items-start"
-                          style={{
-                            animationDelay: isHovered
-                              ? `${detailIndex * 0.1}s`
-                              : "0s",
-                          }}
-                        >
-                          <i className="fas fa-check-circle ai-check-icon me-2 flex-shrink-0" />
-                          <span>{detail}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Bottom Gradient Indicator */}
-                    <div className="ai-card-indicator position-absolute bottom-0 start-0 w-100" />
-
-                    {/* Floating Elements */}
-                    <div className="ai-floating-element-1 position-absolute" />
-                    <div className="ai-floating-element-2 position-absolute" />
-                  </div>
+                    isMobile={isMobile}
+                    isHovered={isHovered}
+                  />
                 </div>
               );
             })}
@@ -719,7 +497,7 @@ const AiSolutionsContent = () => {
           </blockquote>
         </div>
 
-        {/* Technology Stack - Add the image back */}
+        {/* Technology Stack */}
         <div className="ai-implementation-diagram mt-4">
           <div className="tech-stack-placeholder p-4 bg-light border rounded text-center">
             <img
@@ -856,7 +634,7 @@ const AiSolutionsContent = () => {
         </div>
       </div>
 
-      {/* FAQ Section - Keep original implementation */}
+      {/* FAQ Section */}
       <div className="innerpage mt-5 pt-4">
         <h3>Frequently Asked Questions</h3>
         <p>
@@ -866,58 +644,17 @@ const AiSolutionsContent = () => {
         <ServiceAccordion serviceType="ai-solutions" />
       </div>
 
-      {/* Footer CTA Section with improved visibility and theme colors */}
-      <div
-        className="ai-cta-section mt-5 p-5 rounded text-center"
-        style={{
-          background: "linear-gradient(135deg, #121C27 0%, #334155 100%)",
-          borderRadius: "24px",
-          position: "relative",
-          overflow: "hidden",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-        }}
-      >
+      {/* Footer CTA Section */}
+      <div className="ai-cta-section mt-5 p-5 rounded text-center">
         {/* Background Pattern */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundImage: `
-            radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 75% 75%, rgba(58, 80, 99, 0.3) 0%, transparent 50%)
-          `,
-            pointerEvents: "none",
-            zIndex: 1,
-          }}
-        ></div>
+        <div className="ai-cta-background-pattern"></div>
 
-        <div className="position-relative" style={{ zIndex: 2 }}>
-          <h4
-            className="mb-4 text-white"
-            style={{
-              fontSize: "clamp(1.5rem, 3vw, 2.2rem)",
-              fontWeight: "700",
-              lineHeight: "1.3",
-              textShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
-            }}
-          >
+        <div className="position-relative ai-cta-content">
+          <h4 className="mb-4 text-white ai-cta-title">
             Ready to Transform Your Business with AI?
           </h4>
 
-          <p
-            className="mb-4 text-white"
-            style={{
-              fontSize: "1.1rem",
-              lineHeight: "1.6",
-              opacity: "0.95",
-              maxWidth: "600px",
-              margin: "0 auto 2rem auto",
-              textShadow: "0 1px 5px rgba(0, 0, 0, 0.2)",
-            }}
-          >
+          <p className="mb-4 text-white ai-cta-description">
             Let's discuss how our AI solutions can drive growth and innovation
             for your organization.
           </p>
@@ -925,95 +662,17 @@ const AiSolutionsContent = () => {
           <div className="cta-buttons">
             <Link
               href="/contact"
-              className="btn btn-lg text-decoration-none d-inline-flex align-items-center gap-3"
-              style={{
-                background: "linear-gradient(135deg, #3A5063 0%, #4a5568 100%)",
-                color: "#ffffff", // Explicitly set to white
-                padding: "1rem 2.5rem",
-                borderRadius: "50px",
-                fontWeight: "600",
-                fontSize: "1.1rem",
-                transition: "all 0.4s cubic-bezier(0.23, 1, 0.32, 1)",
-                border: "2px solid rgba(255, 255, 255, 0.2)",
-                boxShadow:
-                  "0 10px 30px rgba(58, 80, 99, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
-                textShadow: "0 1px 3px rgba(0, 0, 0, 0.2)",
-                position: "relative",
-                overflow: "hidden",
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = "translateY(-3px)";
-                e.target.style.boxShadow =
-                  "0 15px 40px rgba(58, 80, 99, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)";
-                e.target.style.background =
-                  "linear-gradient(135deg, #4a5568 0%, #5a6478 100%)";
-                e.target.style.color = "#ffffff"; // Ensure white on hover
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = "translateY(0)";
-                e.target.style.boxShadow =
-                  "0 10px 30px rgba(58, 80, 99, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)";
-                e.target.style.background =
-                  "linear-gradient(135deg, #3A5063 0%, #4a5568 100%)";
-                e.target.style.color = "#ffffff"; // Ensure white when hover ends
-              }}
+              className="btn btn-lg text-decoration-none d-inline-flex align-items-center gap-3 ai-cta-button"
             >
-              <span style={{ color: "#ffffff" }}>Get Started Today</span>
-              <i
-                className="fas fa-arrow-right"
-                style={{
-                  transition: "transform 0.3s ease",
-                  color: "#ffffff", // Ensure icon is also white
-                }}
-              />
+              <span className="ai-cta-button-text">Get Started Today</span>
+              <i className="fas fa-arrow-right ai-cta-button-icon" />
             </Link>
           </div>
         </div>
 
         {/* Decorative Elements */}
-        <div
-          style={{
-            position: "absolute",
-            top: "20px",
-            right: "20px",
-            width: "60px",
-            height: "60px",
-            background:
-              "radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)",
-            borderRadius: "50%",
-            animation: "pulse 3s ease-in-out infinite",
-            zIndex: 1,
-          }}
-        ></div>
-
-        <div
-          style={{
-            position: "absolute",
-            bottom: "20px",
-            left: "20px",
-            width: "40px",
-            height: "40px",
-            background:
-              "radial-gradient(circle, rgba(58, 80, 99, 0.3) 0%, transparent 70%)",
-            borderRadius: "50%",
-            animation: "pulse 3s ease-in-out infinite 1.5s",
-            zIndex: 1,
-          }}
-        ></div>
-
-        <style jsx>{`
-          @keyframes pulse {
-            0%,
-            100% {
-              transform: scale(1);
-              opacity: 0.6;
-            }
-            50% {
-              transform: scale(1.2);
-              opacity: 0.3;
-            }
-          }
-        `}</style>
+        <div className="ai-cta-decoration-1"></div>
+        <div className="ai-cta-decoration-2"></div>
       </div>
     </div>
   );
