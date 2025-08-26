@@ -1,113 +1,203 @@
 import React, { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import Link from "next/link";
+import "swiper/css";
+import "swiper/css/navigation";
 
-const AccordionItem = ({
-  title,
-  number,
-  content,
-  delay,
-  isActive,
-  onClick,
-}) => (
-  <div
-    className={`hzAccordion__item ${isActive ? "active" : ""}`}
-    style={{ animationDelay: delay }}
-    onClick={onClick}
-  >
-    <div className="head">
-      <h3 className="head-title">
-        <span className="title">{title}</span>
-        <span className="number">{number}</span>
-      </h3>
-    </div>
-    {isActive && (
-      <div className="content">
-        <div className="wrp">
-          <div className="content-wrp">
-            <p className="text">{content}</p>
-            <Link className="arry-btn" href="/page-service-details">
-              <i className="fa-thin fa-arrow-up-right" />
-            </Link>
-          </div>
-          <div className="shape">
-            <img src="assets/images/shape/hz-accordion-shape.png" alt="shape" />
-          </div>
-          {/* Removed image section */}
-        </div>
-      </div>
-    )}
-  </div>
-);
+const swiperOptions = {
+  modules: [Autoplay, Pagination, Navigation],
+  slidesPerView: 4,
+  autoplay: {
+    delay: 8500,
+    disableOnInteraction: false,
+  },
+  navigation: {
+    clickable: true,
+    prevEl: ".project__arry-prev",
+    nextEl: ".project__arry-next",
+  },
+  loop: true,
+  breakpoints: {
+    320: {
+      slidesPerView: 1,
+    },
+    575: {
+      slidesPerView: 2,
+    },
+    767: {
+      slidesPerView: 2,
+    },
+    991: {
+      slidesPerView: 2,
+    },
+    1199: {
+      slidesPerView: 3,
+    },
+    1350: {
+      slidesPerView: 4,
+    },
+  },
+};
 
-const HorizontalAccordion = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+function Projects() {
+  const [activeTab, setActiveTab] = useState("tab-1");
 
-  const accordionData = [
-    {
-      title: "Cloud Migration",
-      number: "01",
-      content:
-        "Seamlessly migrate your infrastructure to the cloud and harness the power of data with engineered solutions that unlock agility and insight. From assessment to optimization, we ensure your cloud journey is secure and efficient.",
-      delay: "0ms",
-    },
-    {
-      title: "AI Solutions",
-      number: "02",
-      content:
-        "Future-ready AI capabilities to keep you ahead in the digital surge. We empower your business with AI-driven culture that drives long-term, sustainable growth through responsible AI solutions.",
-      delay: "120ms",
-    },
-    {
-      title: "IT Solutions",
-      number: "03",
-      content:
-        "Scalable, flexible and fully managed IT solutions across cybersecurity, risk, network, cloud, and support. Simplify your IT environment while focusing on growth and customer acquisition.",
-      delay: "240ms",
-    },
-    {
-      title: "Data Analytics",
-      number: "04",
-      content:
-        "Power your strategy with high-volume, accurate, and compliant data. Transform raw data into actionable insights with advanced analytics, predictive modeling, and interactive dashboards that drive strategic decision-making.",
-      delay: "360ms",
-    },
-    {
-      title: "Product Engineering",
-      number: "05",
-      content:
-        "Transform software portfolios with comprehensive product engineering. From ideation to deployment, we deliver resilient, future-ready solutions using cutting-edge technologies and agile methodologies.",
-      delay: "480ms",
-    },
-  ];
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId);
+  };
+
+  const renderTabImage = (tabId, imageSrc) => {
+    return (
+      <img
+        id={tabId}
+        className={`tab-img ${activeTab === tabId ? "active" : ""}`}
+        src={imageSrc}
+        alt="image"
+      />
+    );
+  };
 
   return (
     <>
-      <section id="service-menu" className="hzAccordion-area pt-130 pb-130">
+      <section className="project-area pt-130">
         <div className="container">
-          <div className="section-header mb-60">
-            <h2 className="wow splt-txt text-white" data-splitting>
-              Our Services
-            </h2>
+          <div className="section-header__flex mb-50">
+            <div>
+              <h6>OUR SERVICES</h6>
+              <h2 className="wow splt-txt" data-splitting>
+                Cloud, AI, IT, Data & <br /> Product Engineering
+              </h2>
+            </div>
+            <p
+              className="wow fadeInUp"
+              data-wow-delay="200ms"
+              data-wow-duration="1500ms"
+            >
+              We help teams modernize on the cloud, unlock value with AI and
+              analytics, stabilize IT operations, and build scalable products—
+              end to end, securely and fast.
+            </p>
           </div>
-          <div className="hzAccordion__wrp">
-            {accordionData.map((item, index) => (
-              <AccordionItem
-                key={index}
-                title={item.title}
-                number={item.number}
-                content={item.content}
-                delay={item.delay}
-                isActive={activeIndex === index}
-                onClick={() =>
-                  setActiveIndex(activeIndex === index ? 0 : index)
-                }
-              />
-            ))}
+        </div>
+        <div className="project__wrp">
+          <div className="swiper project__slider">
+            <Swiper {...swiperOptions} className="swiper-wrapper">
+              <SwiperSlide
+                className="swiper-slide"
+                data-tab="tab-1"
+                onMouseEnter={() => handleTabClick("tab-1")}
+              >
+                <Link href="/page-project-details" className="project__item">
+                  <div className="content">
+                    <span>01</span>
+                    <h4>
+                      Cloud Migration <br /> & Modernization
+                    </h4>
+                    <p>
+                      Assess, plan, and migrate to AWS/Azure/GCP with
+                      containerization, IaC, and cost-optimized landing
+                      zones—minimal downtime, maximum reliability.
+                    </p>
+                  </div>
+                </Link>
+              </SwiperSlide>
+              <SwiperSlide
+                className="swiper-slide"
+                data-tab="tab-2"
+                onMouseEnter={() => handleTabClick("tab-2")}
+              >
+                <Link href="/page-project-details" className="project__item">
+                  <div className="content">
+                    <span>02</span>
+                    <h4>
+                      AI Solutions <br /> & Automation
+                    </h4>
+                    <p>
+                      LLM apps, copilots, and workflow automation securely wired
+                      to your data. From prototypes to production with
+                      guardrails and observability.
+                    </p>
+                  </div>
+                </Link>
+              </SwiperSlide>
+              <SwiperSlide
+                className="swiper-slide"
+                data-tab="tab-3"
+                onMouseEnter={() => handleTabClick("tab-3")}
+              >
+                <Link href="/page-project-details" className="project__item">
+                  <div className="content">
+                    <span>03</span>
+                    <h4>
+                      Managed IT <br /> & Support
+                    </h4>
+                    <p>
+                      End-to-end IT services: networking, security hardening,
+                      patching, monitoring, and 24×7 support to keep your
+                      business compliant and online.
+                    </p>
+                  </div>
+                </Link>
+              </SwiperSlide>
+              <SwiperSlide
+                className="swiper-slide"
+                data-tab="tab-4"
+                onMouseEnter={() => handleTabClick("tab-4")}
+              >
+                <Link href="/page-project-details" className="project__item">
+                  <div className="content">
+                    <span>04</span>
+                    <h4>
+                      Data Analytics <br /> & Platforms
+                    </h4>
+                    <p>
+                      Modern data stacks, warehouses, and dashboards with
+                      reliable pipelines and governance—turn raw data into
+                      trusted, decision-ready insights.
+                    </p>
+                  </div>
+                </Link>
+              </SwiperSlide>
+              <SwiperSlide
+                className="swiper-slide"
+                data-tab="tab-5"
+                onMouseEnter={() => handleTabClick("tab-5")}
+              >
+                <Link href="/page-project-details" className="project__item">
+                  <div className="content">
+                    <span>05</span>
+                    <h4>
+                      Product <br /> Engineering
+                    </h4>
+                    <p>
+                      Design and build scalable web/mobile products with robust
+                      architectures, CI/CD, and UX that delights—ship faster
+                      with quality.
+                    </p>
+                  </div>
+                </Link>
+              </SwiperSlide>
+            </Swiper>
+          </div>
+          <div className="project__slider-arrys">
+            <button className="project__arry-prev">
+              <i className="fa-regular fa-arrow-left"></i>
+            </button>
+            <button className="project__arry-next">
+              <i className="fa-regular fa-arrow-right"></i>
+            </button>
+          </div>
+          <div className="project__image">
+            {renderTabImage("tab-1", "assets/images/project/1.jpg")}
+            {renderTabImage("tab-2", "assets/images/project/2.jpg")}
+            {renderTabImage("tab-3", "assets/images/project/3.jpg")}
+            {renderTabImage("tab-4", "assets/images/project/4.jpg")}
+            {renderTabImage("tab-5", "assets/images/project/5.jpg")}
           </div>
         </div>
       </section>
     </>
   );
-};
-
-export default HorizontalAccordion;
+}
+export default Projects;
