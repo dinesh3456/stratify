@@ -62,10 +62,10 @@ function Features() {
           </defs>
         </svg>
       ),
-      title: "Requirements Analysis",
+      title: "Consultation",
       link: "/page-service-details",
       description:
-        "Clarifying Vision, Capturing Needs — We Help You Define Requirements with Precision and Purpose. Through detailed discovery sessions, we analyze your current infrastructure, identify pain points, and establish clear technical specifications and business objectives.",
+        "We collaborate with clients to understand their vision, challenges, and objectives, turning ideas into clear strategies and actionable concepts.",
     },
     {
       icon: (
@@ -97,10 +97,10 @@ function Features() {
           </defs>
         </svg>
       ),
-      title: "Design & Architecture",
+      title: "Design & Prototyping",
       link: "/page-service-details",
       description:
-        "Transforming Ideas into Tangible Technical Solutions — Strategic design and system architecture that aligns with your business goals. We create detailed blueprints, technical specifications, and prototypes that serve as the foundation for development.",
+        "Through workshops and discussions, we transform ideas into fast, focused designs and prototypes that accelerate innovation.",
     },
     {
       icon: (
@@ -132,10 +132,10 @@ function Features() {
           </defs>
         </svg>
       ),
-      title: "Build & Validate",
+      title: "Development",
       link: "/page-service-details",
       description:
-        "Agile Development with Continuous Testing — We build robust, scalable solutions using industry best practices. Through iterative development cycles and comprehensive testing, we ensure quality, performance, and security at every stage.",
+        "We develop secure, scalable, and high-performing solutions, ensuring quality through rigorous testing and best practices in execution.",
     },
     {
       icon: (
@@ -171,10 +171,10 @@ function Features() {
           </defs>
         </svg>
       ),
-      title: "Deploy & Optimize",
+      title: "Support",
       link: "/page-service-details",
       description:
-        "Delivering Scalable, Ready-to-Deploy Solutions That Drive Real-World Results. Seamless deployment with ongoing optimization, monitoring, and support to ensure your solutions perform at peak efficiency and evolve with your business needs.",
+        "Beyond delivery, we provide continuous monitoring, maintenance, and enhancement to keep solutions reliable, optimized, and future-ready.",
     },
   ];
 
@@ -192,19 +192,6 @@ function Features() {
                 description={feature.description}
               />
             ))}
-          </div>
-        </div>
-        <div className="container">
-          <div
-            className="feature__text wow fadeInUp mt-50"
-            data-wow-delay="00ms"
-            data-wow-duration="1500ms"
-          >
-            <span>HURRY</span>
-            <p>
-              Choose from our selection of the best places.{" "}
-              <Link href="/page-service-details">Get a project in mind?</Link>
-            </p>
           </div>
         </div>
       </section>
