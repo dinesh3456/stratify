@@ -13,6 +13,7 @@ import Faqs from "../components/sections/Home1/Faqs";
 import Brand from "../components/sections/Home1/Brand";
 import Contact from "../components/sections/Home1/Contact";
 import News from "../components/sections/Home1/News";
+import Clients from "@/components/sections/Home1/Clients";
 
 export default function Home1() {
   return (
@@ -31,8 +32,9 @@ export default function Home1() {
         <Faqs />
         <Brand />
         <News /> */}
-
+        <Clients />
         <About />
+
         <Contact />
       </Layout>
     </>

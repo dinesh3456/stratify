@@ -194,14 +194,6 @@ function ChooseUs() {
                           </div>
                         ))}
                       </div>
-                      <Link
-                        href="/page-about"
-                        className="btn-one mt-60"
-                        data-splitting
-                        data-text="About Us"
-                      >
-                        About Us
-                      </Link>
                     </div>
                   </div>
                 )}
