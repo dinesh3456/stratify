@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import ModalVideo from "react-modal-video";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/pagination";
 import Link from "next/link";
 
-// Modified swiperOptions with simple circle pagination
 const swiperOptions = {
   modules: [Autoplay, Pagination],
   slidesPerView: 1,
@@ -14,87 +13,98 @@ const swiperOptions = {
     disableOnInteraction: false,
   },
   loop: true,
-  pagination: {
-    el: ".banner__dot",
-    clickable: true,
-    // Removed the custom renderBullet function to use default circular dots
-    // The default pagination will show as small circular dots
-  },
 };
 
-const slidesData = [
+const slides = [
   {
-    image: "assets/images/banner/banner-image1.jpg",
-    alt: "Cloud migration image",
-    title:
-      "Enabling Tomorrow's Possibilities with Smart, Scalable Solutions Today",
-    text: "Seamlessly migrate your infrastructure to the cloud and harness the power of data with engineered solutions that unlock agility and insight. From assessment to optimization, we ensure your cloud journey is secure and efficient.",
+    id: 1,
+    image: "assets/images/banner/banner-ten-image1.jpg",
+    subtitle: "Welcome to Strat1",
+    title: "Empower Your Business with Smart Digital Solutions",
+    description:
+      "We craft powerful strategies that transform your vision into reality. Let’s elevate your brand to new heights together.",
   },
   {
-    image: "assets/images/banner/banner-image2.jpg",
-    alt: "AI solutions image",
-    title:
-      "Future-Ready AI Capabilities to Keep You Ahead in the Digital Surge",
-    text: "We empower your business with AI-driven culture that drives long-term, sustainable growth through responsible AI solutions. Transform your operations with intelligent automation and data-driven insights.",
+    id: 2,
+    image: "assets/images/banner/banner-ten-image2.jpg",
+    subtitle: "Expert Support",
+    title: "24/7 Expert IT Support for Your Business",
+    description:
+      "Our creative team delivers fresh ideas and dynamic campaigns that drive measurable success for your business.",
   },
   {
-    image: "assets/images/banner/banner-image3.jpg",
-    alt: "IT solutions image",
-    title: "Scalable, Flexible and Fully Managed IT Solutions",
-    text: "Comprehensive IT solutions across cybersecurity, risk, network, cloud, and support. Simplify your IT environment while focusing on growth and customer acquisition with our expert team by your side.",
+    id: 3,
+    image: "assets/images/banner/banner-ten-image3.jpg",
+    subtitle: "Let’s Build Success",
+    title: "Partner with Experts to Lead Your Industry",
+    description:
+      "Join forces with our experienced professionals to dominate your market and build lasting client relationships.",
   },
 ];
 
 function Slider() {
+  const [isOpen, setOpen] = useState(false);
+  const handleOpenVideo = () => setOpen(true);
+
   return (
     <>
-      <section id="home-menu" className="banner-area">
-        <div className="banner__wrp">
-          <div className="banner__image">
-            <Swiper {...swiperOptions} className="swiper-wrapper">
-              {slidesData.map((slide, index) => (
-                <SwiperSlide key={index}>
-                  <div className="parallax-bg">
-                    <img
-                      src={slide.image}
-                      alt={slide.alt}
-                      data-swiper-parallax="300"
-                    />
+      <section id="home-menu" className="banner-ten-area">
+        <div className="swiper banner-ten__slider">
+          <Swiper {...swiperOptions} className="swiper-wrapper">
+            {slides.map((slide) => (
+              <SwiperSlide key={slide.id} className="swiper-slide">
+                <div
+                  className="slide-bg"
+                  style={{ backgroundImage: `url(${slide.image})` }}
+                ></div>
+                <div className="banner-ten__content">
+                  <h5
+                    className="text-uppercase"
+                    data-animation="fadeInUp"
+                    data-delay=".1s"
+                  >
+                    {slide.subtitle}
+                  </h5>
+                  <h1
+                    className="title"
+                    data-animation="fadeInUp"
+                    data-delay=".3s"
+                  >
+                    {slide.title}
+                  </h1>
+                  <p
+                    className="text"
+                    data-animation="fadeInUp"
+                    data-delay=".5s"
+                  >
+                    {slide.description}
+                  </p>
+                  <div className="btns mt-40">
+                    <Link
+                      href="/page-about"
+                      passHref
+                      className="btn-one"
+                      data-splitting
+                      data-animation="fadeInUp"
+                      data-delay=".8s"
+                    >
+                      Get Started{" "}
+                      <i className="fa-regular fs-14 fa-angle-right" />
+                    </Link>
                   </div>
-                  <div className="banner__content">
-                    <h1
-                      className="title"
-                      data-animation="slideInLeft"
-                      data-duration="1s"
-                      data-delay="1s"
-                    >
-                      {slide.title}
-                    </h1>
-                    <p
-                      className="text"
-                      data-animation="slideInLeft"
-                      data-duration="1.5s"
-                      data-delay="1.1s"
-                    >
-                      {slide.text}
-                    </p>
-                    <div
-                      data-animation="fadeInDown"
-                      data-duration="2s"
-                      data-delay="2s"
-                    >
-                      <Link href="/" className="arry-btn animation__arryUpDown">
-                        <i className="fa-light fa-arrow-right-long" />
-                      </Link>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-          <div className="banner__dot"></div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </section>
+      <ModalVideo
+        channel="youtube"
+        autoplay
+        isOpen={isOpen}
+        videoId="UalTfOIDQ7M"
+        onClose={() => setOpen(false)}
+      />
     </>
   );
 }

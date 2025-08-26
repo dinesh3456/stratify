@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import NavLinks from "./NavLinks";
+import NavLinks from "./NavLinks2";
 import MobileMenu from "./MobileMenu";
 
-const Header = ({ scroll }) => {
+const Header3 = ({ scroll }) => {
   const [searchToggle, setSearchToggle] = useState(false);
   const [sidebarToggle, setSidebarToggle] = useState(false);
 
@@ -19,6 +19,10 @@ const Header = ({ scroll }) => {
               <li>
                 <i className="fa-light fa-envelope-open-text" />
                 <Link href="/">operations@strat1.ai</Link>
+              </li>
+              <li>
+                <i className="fa-light fa-location-dot" />
+                <Link href="/">Suite 304, 800 N King Street,United States</Link>
               </li>
             </ul>
             <div className="header-top__socials">
@@ -114,37 +118,30 @@ const Header = ({ scroll }) => {
       </div>
 
       <header
-        className={`header-area header-blur ${scroll ? "menu-fixed" : ""}`}
+        className={`header-area header-three-area ${
+          scroll ? "menu-fixed" : ""
+        }`}
       >
         <div className="container">
           <div className="header__main">
-            <Link href="/" className="logo logo-main">
-              <img src="assets/images/logo/logo.png" alt="logo" />
+            <Link href="/" className="logo">
+              <img src="assets/images/logo/logo-black.png" alt="logo" />
             </Link>
-            <Link href="/" className="logo logo-light">
-              <img src="assets/images/logo/logo-light.png" alt="logo" />
-            </Link>
-            <div className="main-menu main-menu-light">
+            <div className="main-menu">
               <nav>
                 <NavLinks />
               </nav>
-              <div className="menu-btns light">
-                {/* <button
-                  className="search-trigger d-none d-lg-block"
-                  onClick={handleToggleSearch}
-                >
-                  <i className="fa-light fa-magnifying-glass" />
-                </button> */}
+              <div className="menu-btns">
                 <button
-                  className="menubars menubars-light"
+                  className="menubars"
                   type="button"
                   data-bs-toggle="offcanvas"
                   data-bs-target="#menubar"
                   onClick={handleToggleSidebar}
                 >
-                  <span></span>
-                  <span></span>
-                  <span></span>
+                  <span />
+                  <span />
+                  <span />
                 </button>
               </div>
             </div>
@@ -187,7 +184,20 @@ const Header = ({ scroll }) => {
           </div>
           <div className="sidebar__contact-info mt-30">
             <h5 className="text-white mb-20">Contact Info</h5>
-            <ul></ul>
+            <ul>
+              <li>
+                <i className="fa-solid fa-location-dot" />
+                <Link href="/">Suite 304, 800 N King Street</Link>
+              </li>
+              <li className="py-2">
+                <i className="fa-solid fa-phone-volume" />
+                <Link href="/tel:+91 9900297673">+91 9900297673</Link>
+              </li>
+              <li>
+                <i className="fa-solid fa-paper-plane" />
+                <Link href="/">operations@strat1.ai</Link>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -195,4 +205,4 @@ const Header = ({ scroll }) => {
   );
 };
 
-export default Header;
+export default Header3;
