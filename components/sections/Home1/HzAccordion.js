@@ -57,15 +57,6 @@ function Projects() {
                 Build. Scale. Innovate. <br /> With the Right Tech Partner
               </h2>
             </div>
-            <p
-              className="wow fadeInUp"
-              data-wow-delay="200ms"
-              data-wow-duration="1500ms"
-            >
-              We help teams modernize on the cloud, unlock value with AI and
-              analytics, stabilize IT operations, and build scalable products—
-              end to end, securely and fast.
-            </p>
           </div>
         </div>
         <div className="project__wrp">
