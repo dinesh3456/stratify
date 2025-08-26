@@ -19,24 +19,12 @@ const swiperOptions = {
   },
   loop: true,
   breakpoints: {
-    320: {
-      slidesPerView: 1,
-    },
-    575: {
-      slidesPerView: 2,
-    },
-    767: {
-      slidesPerView: 2,
-    },
-    991: {
-      slidesPerView: 2,
-    },
-    1199: {
-      slidesPerView: 3,
-    },
-    1350: {
-      slidesPerView: 4,
-    },
+    320: { slidesPerView: 1 },
+    575: { slidesPerView: 2 },
+    767: { slidesPerView: 2 },
+    991: { slidesPerView: 2 },
+    1199: { slidesPerView: 3 },
+    1350: { slidesPerView: 4 },
   },
 };
 
@@ -60,13 +48,13 @@ function Projects() {
 
   return (
     <>
-      <section className="project-area pt-130">
+      <section className="project-area pt-10">
         <div className="container">
           <div className="section-header__flex mb-50">
             <div>
               <h6>OUR SERVICES</h6>
               <h2 className="wow splt-txt" data-splitting>
-                Cloud, AI, IT, Data & <br /> Product Engineering
+                Build. Scale. Innovate. <br /> With the Right Tech Partner
               </h2>
             </div>
             <p
@@ -83,12 +71,16 @@ function Projects() {
         <div className="project__wrp">
           <div className="swiper project__slider">
             <Swiper {...swiperOptions} className="swiper-wrapper">
+              {/* Cloud Migration */}
               <SwiperSlide
                 className="swiper-slide"
                 data-tab="tab-1"
                 onMouseEnter={() => handleTabClick("tab-1")}
               >
-                <Link href="/page-project-details" className="project__item">
+                <Link
+                  href="/services/cloud-migration"
+                  className="project__item"
+                >
                   <div className="content">
                     <span>01</span>
                     <h4>
@@ -96,18 +88,20 @@ function Projects() {
                     </h4>
                     <p>
                       Assess, plan, and migrate to AWS/Azure/GCP with
-                      containerization, IaC, and cost-optimized landing
-                      zones—minimal downtime, maximum reliability.
+                      containerization, IaC, and cost-optimized landing zones—
+                      minimal downtime, maximum reliability.
                     </p>
                   </div>
                 </Link>
               </SwiperSlide>
+
+              {/* AI Solutions */}
               <SwiperSlide
                 className="swiper-slide"
                 data-tab="tab-2"
                 onMouseEnter={() => handleTabClick("tab-2")}
               >
-                <Link href="/page-project-details" className="project__item">
+                <Link href="/services/ai-solutions" className="project__item">
                   <div className="content">
                     <span>02</span>
                     <h4>
@@ -116,36 +110,40 @@ function Projects() {
                     <p>
                       LLM apps, copilots, and workflow automation securely wired
                       to your data. From prototypes to production with
-                      guardrails and observability.
+                      guardrails.
                     </p>
                   </div>
                 </Link>
               </SwiperSlide>
+
+              {/* IT Solutions */}
               <SwiperSlide
                 className="swiper-slide"
                 data-tab="tab-3"
                 onMouseEnter={() => handleTabClick("tab-3")}
               >
-                <Link href="/page-project-details" className="project__item">
+                <Link href="/services/it-solutions" className="project__item">
                   <div className="content">
                     <span>03</span>
                     <h4>
                       Managed IT <br /> & Support
                     </h4>
                     <p>
-                      End-to-end IT services: networking, security hardening,
-                      patching, monitoring, and 24×7 support to keep your
-                      business compliant and online.
+                      End-to-end IT services: networking, security, monitoring,
+                      and 24×7 support to keep your business compliant and
+                      online.
                     </p>
                   </div>
                 </Link>
               </SwiperSlide>
+
+              {/* Data Analytics */}
               <SwiperSlide
                 className="swiper-slide"
                 data-tab="tab-4"
                 onMouseEnter={() => handleTabClick("tab-4")}
               >
-                <Link href="/page-project-details" className="project__item">
+                <Link href="/services/data-analytics" className="project__item">
                   <div className="content">
                     <span>04</span>
                     <h4>
@@ -154,17 +152,22 @@ function Projects() {
                     <p>
                       Modern data stacks, warehouses, and dashboards with
                       reliable pipelines and governance—turn raw data into
-                      trusted, decision-ready insights.
+                      trusted insights.
                     </p>
                   </div>
                 </Link>
               </SwiperSlide>
+
+              {/* Product Engineering */}
               <SwiperSlide
                 className="swiper-slide"
                 data-tab="tab-5"
                 onMouseEnter={() => handleTabClick("tab-5")}
               >
-                <Link href="/page-project-details" className="project__item">
+                <Link
+                  href="/services/product-engineering"
+                  className="project__item"
+                >
                   <div className="content">
                     <span>05</span>
                     <h4>
@@ -180,6 +183,7 @@ function Projects() {
               </SwiperSlide>
             </Swiper>
           </div>
+
           <div className="project__slider-arrys">
             <button className="project__arry-prev">
               <i className="fa-regular fa-arrow-left"></i>
@@ -188,6 +192,7 @@ function Projects() {
               <i className="fa-regular fa-arrow-right"></i>
             </button>
           </div>
+
           <div className="project__image">
             {renderTabImage("tab-1", "assets/images/project/1.jpg")}
             {renderTabImage("tab-2", "assets/images/project/2.jpg")}
