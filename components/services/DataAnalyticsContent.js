@@ -75,7 +75,8 @@ const useMediaQuery = (query) => {
   return matches;
 };
 
-const StripeFlipCard = ({
+// Updated StandardFlipCard Component with rotateY animation (for capabilities)
+const StandardFlipCard = ({
   capability,
   index,
   isVisible,
@@ -86,8 +87,64 @@ const StripeFlipCard = ({
   isHovered,
 }) => {
   const IconComponent = capability.icon;
-  const numStripes = 6; // Number of horizontal stripes
 
+  return (
+    <div
+      className={`ai-flip-card ${isVisible ? "visible" : ""}`}
+      style={{
+        animationDelay: `${index * 0.15}s`,
+      }}
+      onMouseEnter={onHover}
+      onMouseLeave={onLeave}
+      onClick={onClick}
+    >
+      <div className={`ai-flip-card-inner ${isHovered ? "flipped" : ""}`}>
+        {/* Front Side */}
+        <div className="ai-flip-card-front">
+          {/* Glossy background effect - similar to success stories */}
+          <div className="glossy-pattern" />
+
+          <div className="ai-icon-container">
+            <IconComponent isHovered={isHovered} isVisible={isVisible} />
+          </div>
+
+          <h4 className="ai-flip-card-title mb-2">{capability.title}</h4>
+          <p className="ai-flip-card-subtitle small text-muted">
+            {capability.description}
+          </p>
+        </div>
+
+        {/* Back Side */}
+        <div className="ai-flip-card-back">
+          {/* Glossy background pattern for back side */}
+          <div className="glossy-pattern" />
+
+          <h4 className="ai-flip-card-back-title mb-3">{capability.title}</h4>
+          <ul className="ai-flip-card-list list-unstyled text-start">
+            {capability.details.map((detail, detailIndex) => (
+              <li key={detailIndex} className="ai-flip-card-item mb-2">
+                <i className="fas fa-check-circle ai-flip-card-icon me-2 flex-shrink-0" />
+                <span className="ai-flip-card-text">{detail}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Optimized Stripe Flip Card Component with rotateX animation (for success stories)
+const OptimizedStripeFlipCard = ({
+  story,
+  index,
+  isVisible,
+  onHover,
+  onLeave,
+  onClick,
+  isMobile,
+  isHovered,
+}) => {
   return (
     <div
       className={`stripe-flip-card ${isVisible ? "visible" : ""} ${
@@ -100,82 +157,40 @@ const StripeFlipCard = ({
       onMouseLeave={onLeave}
       onClick={onClick}
     >
-      {/* Front Side Stripes */}
-      <div className="stripe-container front">
-        {Array.from({ length: numStripes }).map((_, stripeIndex) => (
-          <div
-            key={`front-${stripeIndex}`}
-            className="stripe front-stripe"
-            style={{
-              animationDelay: isHovered ? `${stripeIndex * 0.05}s` : "0s",
-              zIndex: numStripes - stripeIndex,
-            }}
-          >
-            <div className="stripe-content">
-              {/* Icon distributed across stripes 1-2 for better spacing */}
-              {(stripeIndex === 1 || stripeIndex === 2) && (
-                <div className="icon-stripe">
-                  {stripeIndex === 1 && (
-                    <IconComponent
-                      isHovered={isHovered}
-                      isVisible={isVisible}
-                    />
-                  )}
-                </div>
-              )}
-              {/* Title distributed across stripes 3-4 for better spacing */}
-              {(stripeIndex === 3 || stripeIndex === 4) && (
-                <div className="title-stripe">
-                  {stripeIndex === 3 && (
-                    <h5 className="card-title">{capability.title}</h5>
-                  )}
-                </div>
-              )}
-            </div>
+      <div className="stripe-flip-inner">
+        {/* Front Face */}
+        <div className="stripe-face stripe-face-front">
+          <div className="stripe-pattern" />
+          <div className="stripe-content">
+            <div className="stripe-icon">{story.frontIcon}</div>
+            <h5 className="stripe-title">{story.title}</h5>
+            <p className="stripe-subtitle">{story.subtitle}</p>
           </div>
-        ))}
+        </div>
+
+        {/* Back Face */}
+        <div className="stripe-face stripe-face-back">
+          <div className="stripe-pattern" />
+          <div className="stripe-content">
+            <h5 className="stripe-title">{story.backContent.title}</h5>
+            <ul className="stripe-features">
+              {story.backContent.features.map((feature, idx) => (
+                <li key={idx} className="stripe-feature-item">
+                  <i className="fas fa-check-circle stripe-feature-icon" />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
 
-      {/* Back Side Stripes */}
-      <div className="stripe-container back">
-        {Array.from({ length: numStripes }).map((_, stripeIndex) => (
-          <div
-            key={`back-${stripeIndex}`}
-            className="stripe back-stripe"
-            style={{
-              animationDelay: isHovered ? `${stripeIndex * 0.05}s` : "0s",
-              zIndex: numStripes - stripeIndex,
-            }}
-          >
-            <div className="stripe-content">
-              {/* Title in the first stripe on the back */}
-              {stripeIndex === 0 && (
-                <div className="back-title-stripe">
-                  <h5 className="back-title">{capability.title}</h5>
-                </div>
-              )}
-              {/* Details in stripes 1-4 on the back */}
-              {stripeIndex >= 1 &&
-                stripeIndex <= 4 &&
-                capability.details[stripeIndex - 1] && (
-                  <div className="detail-stripe">
-                    <div className="detail-item">
-                      <i className="fas fa-check-circle check-icon" />
-                      <span>{capability.details[stripeIndex - 1]}</span>
-                    </div>
-                  </div>
-                )}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Floating Elements */}
-      <div className="floating-element-1"></div>
-      <div className="floating-element-2"></div>
+      {/* Simplified decorations */}
+      <div className="stripe-decoration stripe-decoration-1" />
+      <div className="stripe-decoration stripe-decoration-2" />
 
       {/* Hover indicator */}
-      <div className="card-indicator" />
+      <div className="stripe-indicator" />
     </div>
   );
 };
@@ -183,8 +198,10 @@ const StripeFlipCard = ({
 const DataAnalyticsContent = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [activeCard, setActiveCard] = useState(null);
-  const [flippedCard, setFlippedCard] = useState(null);
+  const [hoveredStory, setHoveredStory] = useState(null);
+  const [activeStory, setActiveStory] = useState(null);
   const [capabilitiesRef, isCapabilitiesVisible] = useIntersectionObserver(0.2);
+  const [storiesRef, isStoriesVisible] = useIntersectionObserver(0.2);
   const isMobile = useMediaQuery("(max-width: 768px)");
 
   const capabilities = [
@@ -192,10 +209,10 @@ const DataAnalyticsContent = () => {
       id: 1,
       icon: DataVisualizationIcon,
       title: "Data Visualization & Analytics",
+      description: "Interactive dashboards and advanced statistical modeling",
       details: [
         "Interactive dashboards and reports",
         "Advanced statistical modeling",
-        "Data storytelling and insights",
         "Custom visualization solutions",
       ],
     },
@@ -203,10 +220,10 @@ const DataAnalyticsContent = () => {
       id: 2,
       icon: BusinessIntelligenceIcon,
       title: "Business Intelligence & Reporting",
+      description: "KPI tracking and automated reporting systems",
       details: [
         "KPI tracking and monitoring",
         "Automated reporting systems",
-        "Performance analytics",
         "Executive dashboards",
       ],
     },
@@ -214,10 +231,10 @@ const DataAnalyticsContent = () => {
       id: 3,
       icon: DataEngineeringIcon,
       title: "Data Engineering & ETL",
+      description: "Data pipeline development and integration",
       details: [
         "Data pipeline development",
         "ETL/ELT processes",
-        "Data integration and transformation",
         "Data quality management",
       ],
     },
@@ -225,10 +242,10 @@ const DataAnalyticsContent = () => {
       id: 4,
       icon: DataScienceIcon,
       title: "Data Science & Machine Learning",
+      description: "Predictive modeling and AI-powered insights",
       details: [
         "Predictive modeling and analytics",
         "AI-powered insights generation",
-        "Pattern recognition and clustering",
         "Recommendation systems",
       ],
     },
@@ -236,10 +253,10 @@ const DataAnalyticsContent = () => {
       id: 5,
       icon: RealTimeAnalyticsIcon,
       title: "Real-time Analytics & Streaming",
+      description: "Streaming data processing and live updates",
       details: [
         "Streaming data processing",
         "Live dashboard updates",
-        "Alert and notification systems",
         "Performance monitoring",
       ],
     },
@@ -247,9 +264,9 @@ const DataAnalyticsContent = () => {
       id: 6,
       icon: DataGovernanceIcon,
       title: "Data Governance & Security",
+      description: "Data privacy, compliance and access control",
       details: [
         "Data privacy and compliance",
-        "Data cataloging and lineage",
         "Access control and security",
         "Quality assurance frameworks",
       ],
@@ -297,7 +314,6 @@ const DataAnalyticsContent = () => {
         title: "Data-Driven Retail Success",
         features: [
           "360° customer analytics implementation",
-          "Real-time inventory optimization",
           "30% increase in conversion rates",
           "Personalized recommendation engine",
         ],
@@ -342,7 +358,6 @@ const DataAnalyticsContent = () => {
         title: "Enterprise Data Transformation",
         features: [
           "Unified data warehouse implementation",
-          "Automated compliance reporting",
           "50% reduction in reporting time",
           "Real-time risk analytics dashboard",
         ],
@@ -386,7 +401,6 @@ const DataAnalyticsContent = () => {
         title: "Smart Manufacturing Analytics",
         features: [
           "IoT sensor data integration",
-          "Predictive maintenance models",
           "25% reduction in downtime",
           "Real-time production optimization",
         ],
@@ -416,6 +430,30 @@ const DataAnalyticsContent = () => {
       }
     },
     [isMobile, activeCard]
+  );
+
+  const handleStoryHover = useCallback(
+    (id) => {
+      if (!isMobile) {
+        setHoveredStory(id);
+      }
+    },
+    [isMobile]
+  );
+
+  const handleStoryLeave = useCallback(() => {
+    if (!isMobile) {
+      setHoveredStory(null);
+    }
+  }, [isMobile]);
+
+  const handleStoryClick = useCallback(
+    (id) => {
+      if (isMobile) {
+        setActiveStory(activeStory === id ? null : id);
+      }
+    },
+    [isMobile, activeStory]
   );
 
   return (
@@ -470,7 +508,7 @@ const DataAnalyticsContent = () => {
         </div>
       </div>
 
-      {/* Enhanced Data Analytics Capabilities Section with Stripe Flip Animation */}
+      {/* Enhanced Data Analytics Capabilities Section with Standard Flip Animation (rotateY) */}
       <div
         className="ai-capabilities-container mt-5 p-4 position-relative"
         style={{
@@ -494,7 +532,7 @@ const DataAnalyticsContent = () => {
 
               return (
                 <div key={capability.id} className="col-lg-4 col-md-6 mb-4">
-                  <StripeFlipCard
+                  <StandardFlipCard
                     capability={capability}
                     index={index}
                     isVisible={isCapabilitiesVisible}
@@ -580,121 +618,44 @@ const DataAnalyticsContent = () => {
         </div>
       </div>
 
-      {/* Data Analytics Success Stories Section */}
-      <div className="ai-use-cases mt-5 mb-5">
-        <h3 className="mb-4">Data Analytics Solutions in Action</h3>
-        <div className="row" style={{ minHeight: "320px" }}>
-          {successStories.map((story) => (
-            <div key={story.id} className="col-lg-4 col-md-6 mb-4">
-              <div
-                className="flip-card"
-                style={{
-                  perspective: "1000px",
-                  height: "300px",
-                  position: "relative",
-                }}
-                onMouseEnter={() => setFlippedCard(story.id)}
-                onMouseLeave={() => setFlippedCard(null)}
-              >
-                <div
-                  className="flip-card-inner"
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "100%",
-                    textAlign: "center",
-                    transition: "transform 0.6s",
-                    transformStyle: "preserve-3d",
-                    transform:
-                      flippedCard === story.id
-                        ? "rotateY(180deg)"
-                        : "rotateY(0deg)",
-                  }}
-                >
-                  {/* Front Side */}
-                  <div
-                    className="flip-card-front"
-                    style={{
-                      position: "absolute",
-                      width: "100%",
-                      height: "100%",
-                      backfaceVisibility: "hidden",
-                      border: "1px solid #e9ecef",
-                      borderRadius: "8px",
-                      padding: "2rem",
-                      backgroundColor: "white",
-                      boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div className="icon mb-3">{story.frontIcon}</div>
-                    <h4
-                      className="mb-2 text-center"
-                      style={{ color: "#333", fontSize: "1.2rem" }}
-                    >
-                      {story.title}
-                    </h4>
-                    <p className="small text-muted mt-2 text-center">
-                      {story.subtitle}
-                    </p>
-                  </div>
+      {/* Data Analytics Success Stories Section - Using Stripe Flip Animation (rotateX) */}
+      <div
+        className="ai-capabilities-container mt-5 p-4 position-relative"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(248, 250, 252, 0.8) 0%, rgba(226, 232, 240, 0.6) 100%)",
+          borderRadius: "20px",
+          backdropFilter: "blur(10px)",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+        }}
+      >
+        <ParticleBackground />
 
-                  {/* Back Side */}
-                  <div
-                    className="flip-card-back"
-                    style={{
-                      position: "absolute",
-                      width: "100%",
-                      height: "100%",
-                      backfaceVisibility: "hidden",
-                      transform: "rotateY(180deg)",
-                      border: "1px solid #121C27",
-                      borderRadius: "8px",
-                      padding: "2rem",
-                      backgroundColor: "#121C27",
-                      color: "white",
-                      boxShadow: "0 10px 30px rgba(18, 28, 39, 0.3)",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <h4 className="mb-3 text-white text-center">
-                      {story.backContent.title}
-                    </h4>
-                    <ul className="list-unstyled text-start">
-                      {story.backContent.features.map((feature, index) => (
-                        <li
-                          key={index}
-                          className="mb-2 d-flex align-items-start"
-                        >
-                          <i
-                            className="fas fa-check-circle me-2 flex-shrink-0"
-                            style={{
-                              color: "rgba(255, 255, 255, 0.8)",
-                              marginTop: "2px",
-                            }}
-                          />
-                          <span
-                            style={{
-                              color: "rgba(255, 255, 255, 0.9)",
-                              fontSize: "0.9rem",
-                              lineHeight: "1.4",
-                            }}
-                          >
-                            {feature}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+        <div className="ai-capabilities" ref={storiesRef}>
+          <h3 className="ai-capabilities-title text-center mb-4 position-relative">
+            Data Analytics Solutions in Action
+          </h3>
+          <div className="row" style={{ minHeight: "320px" }}>
+            {successStories.map((story, index) => {
+              const isHovered =
+                hoveredStory === story.id || activeStory === story.id;
+
+              return (
+                <div key={story.id} className="col-lg-4 col-md-6 mb-4">
+                  <OptimizedStripeFlipCard
+                    story={story}
+                    index={index}
+                    isVisible={isStoriesVisible}
+                    onHover={() => handleStoryHover(story.id)}
+                    onLeave={handleStoryLeave}
+                    onClick={() => handleStoryClick(story.id)}
+                    isMobile={isMobile}
+                    isHovered={isHovered}
+                  />
                 </div>
-              </div>
-            </div>
-          ))}
+              );
+            })}
+          </div>
         </div>
       </div>
 
