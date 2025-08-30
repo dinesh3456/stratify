@@ -8403,6 +8403,7 @@ figure {
 
 .choose-one-area {
   overflow: hidden;
+  padding-top: 80px;
 }
 @media (max-width: 1399px) {
   .choose-one-area {
@@ -8410,12 +8411,12 @@ figure {
   }
 }
 .choose-one__wrp {
-  padding: 0px 120px;
-  padding-bottom: 130px;
+  padding: 0px 60px;
+  padding-bottom: 80px;
 }
 @media (max-width: 1399px) {
   .choose-one__wrp {
-    padding: 60px;
+    padding: 40px 30px;
   }
 }
 @media (max-width: 767px) {
@@ -20965,23 +20966,53 @@ form .error {
 .choose-one__elegant-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .choose-one__elegant-item {
   position: relative;
   background: transparent;
-  border: 1px solid rgba(18, 28, 39, 0.1);
+  border: 1px solid rgba(18, 28, 39, 0.08);
   border-radius: 8px;
-  padding: 2rem;
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.choose-one-area .section-header {
+  margin-bottom: 30px;
+}
+
+.choose-one-area .tab-content {
+  margin-top: 30px;
+}
+
+.choose-one__content p.mb-50 {
+  margin-bottom: 30px;
+}
+
+.choose-one-area .btn-one.mt-60 {
+  margin-top: 40px;
+}
+
+.choose-one-area .row.g-0 {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+.choose-one-area .row.g-0 > [class*="col-"] {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.choose-one__wrp {
   transition: all 0.3s ease;
 }
 
 .choose-one__elegant-item:hover {
-  transform: translateY(-5px);
-  border-color: rgba(18, 28, 39, 0.2);
-  box-shadow: 0 10px 30px rgba(18, 28, 39, 0.1);
+  transform: translateY(-8px);
+  border-color: rgba(18, 28, 39, 0.15);
+  box-shadow: 0 15px 35px rgba(18, 28, 39, 0.08);
 }
 
 .choose-one__number-badge {
